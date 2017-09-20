@@ -4,6 +4,7 @@ import android.app.Application;
 
 import amiltone.bsaugues.td_niveau1.data.MarvelApiManagerImpl;
 import amiltone.bsaugues.td_niveau1.data.Repository;
+import amiltone.bsaugues.td_niveau1.presentation.Navigator;
 
 /**
  * Created by amiltonedev_dt013 on 20/09/2017.
@@ -16,6 +17,7 @@ public class TdApplication extends Application {
     private static final TdApplication ourInstance = new TdApplication();
 
     private Repository repository;
+    private Navigator navigator;
 
     public static TdApplication getInstance() {
         return ourInstance;
@@ -25,5 +27,14 @@ public class TdApplication extends Application {
     public void onCreate() {
         super.onCreate();
         repository = new Repository(new MarvelApiManagerImpl());
+        navigator = new Navigator();
+    }
+
+    public Repository getRepository() {
+        return repository;
+    }
+
+    public Navigator getNavigator() {
+        return navigator;
     }
 }

@@ -15,11 +15,11 @@ public class ComicViewModel {
     }
 
     public String getComicDate() {
-        return this.comic.getOnSaleDate().toString();
+        return "";
     }
 
     public String getComicImageUrl() {
-        return this.comic.getCoverUrl().getUrl();
+        return this.comic.getThumbnail().getUrl();
     }
 
     public Comic getComic() {

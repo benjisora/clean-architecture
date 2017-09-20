@@ -18,7 +18,6 @@ class SpecifiedDate {
     }
 
     public String getType() {
-
         return type;
     }
 
