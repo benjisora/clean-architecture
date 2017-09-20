@@ -1,6 +1,5 @@
 package amiltone.bsaugues.td_niveau1.data.model;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,13 +11,16 @@ public class Comic {
     private long id;
     private String title;
 
-    private Date onSaleDate;
-    private Image coverUrl;
-
-    private List<Creator> creatorList;
-
     private String diamondCode;
-    private String webUrl;
+
+    private List<SpecifiedUrl> urls;
+
+    private List<SpecifiedDate> dates;
+
+    private Image thumbnail;
+
+    private List<Creator> creators;
+
 
     //region getters/setters
 
@@ -38,30 +40,6 @@ public class Comic {
         this.title = title;
     }
 
-    public Date getOnSaleDate() {
-        return onSaleDate;
-    }
-
-    public void setOnSaleDate(Date onSaleDate) {
-        this.onSaleDate = onSaleDate;
-    }
-
-    public Image getCoverUrl() {
-        return coverUrl;
-    }
-
-    public void setCoverUrl(Image coverUrl) {
-        this.coverUrl = coverUrl;
-    }
-
-    public List<Creator> getCreatorList() {
-        return creatorList;
-    }
-
-    public void setCreatorList(List<Creator> creatorList) {
-        this.creatorList = creatorList;
-    }
-
     public String getDiamondCode() {
         return diamondCode;
     }
@@ -70,13 +48,38 @@ public class Comic {
         this.diamondCode = diamondCode;
     }
 
-    public String getWebUrl() {
-        return webUrl;
+    public List<SpecifiedUrl> getUrls() {
+        return urls;
     }
 
-    public void setWebUrl(String webUrl) {
-        this.webUrl = webUrl;
+    public void setUrls(List<SpecifiedUrl> urls) {
+        this.urls = urls;
     }
+
+    public List<SpecifiedDate> getDates() {
+        return dates;
+    }
+
+    public void setDates(List<SpecifiedDate> dates) {
+        this.dates = dates;
+    }
+
+    public Image getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(Image thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public List<Creator> getCreators() {
+        return creators;
+    }
+
+    public void setCreators(List<Creator> creators) {
+        this.creators = creators;
+    }
+
 
     //endregion
 

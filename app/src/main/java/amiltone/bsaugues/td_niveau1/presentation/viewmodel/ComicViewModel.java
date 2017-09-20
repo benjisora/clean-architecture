@@ -1,4 +1,4 @@
-package amiltone.bsaugues.td_niveau1.data.model.viewmodel;
+package amiltone.bsaugues.td_niveau1.presentation.viewmodel;
 
 import amiltone.bsaugues.td_niveau1.data.model.Comic;
 
