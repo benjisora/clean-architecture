@@ -22,5 +22,4 @@ public class CreatorsEnveloppe implements Serializable {
         this.creators = creators;
     }
 
-
 }

@@ -27,7 +27,4 @@ public class Image implements Serializable {
         this.extension = extension;
     }
 
-    public String getUrl() {
-        return this.path + "." + this.extension;
-    }
 }

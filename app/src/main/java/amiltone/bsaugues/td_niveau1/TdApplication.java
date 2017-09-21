@@ -2,9 +2,10 @@ package amiltone.bsaugues.td_niveau1;
 
 import android.app.Application;
 
-import amiltone.bsaugues.td_niveau1.data.ApiRepository;
-import amiltone.bsaugues.td_niveau1.data.MarvelApiManagerImpl;
-import amiltone.bsaugues.td_niveau1.presentation.Navigator;
+import amiltone.bsaugues.td_niveau1.data.manager.cache.CacheManagerImpl;
+import amiltone.bsaugues.td_niveau1.data.repository.ContentRepository;
+import amiltone.bsaugues.td_niveau1.data.manager.api.MarvelApiManagerImpl;
+import amiltone.bsaugues.td_niveau1.presentation.navigator.Navigator;
 
 /**
  * Created by amiltonedev_dt013 on 20/09/2017.
@@ -12,12 +13,14 @@ import amiltone.bsaugues.td_niveau1.presentation.Navigator;
 
 public class TdApplication extends Application {
 
-    public static final String BASE_URL = "http://gateway.marvel.com/v1/public/";
-
-    private ApiRepository apiRepository = new ApiRepository(new MarvelApiManagerImpl());
+    private ContentRepository contentRepository;
     private Navigator navigator;
 
     private static final TdApplication ourInstance = new TdApplication();
+
+    public TdApplication(){
+        contentRepository = new ContentRepository(new MarvelApiManagerImpl(), new CacheManagerImpl());
+    }
 
     public static TdApplication getInstance() {
         return ourInstance;
@@ -31,8 +34,8 @@ public class TdApplication extends Application {
         return navigator;
     }
 
-    public ApiRepository getApiRepository() {
-        return apiRepository;
+    public ContentRepository getContentRepository() {
+        return contentRepository;
     }
 
 }

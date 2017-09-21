@@ -1,17 +1,16 @@
-package amiltone.bsaugues.td_niveau1.presentation;
+package amiltone.bsaugues.td_niveau1.presentation.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import amiltone.bsaugues.td_niveau1.R;
-import amiltone.bsaugues.td_niveau1.TdApplication;
-import amiltone.bsaugues.td_niveau1.presentation.ComicListView;
-import amiltone.bsaugues.td_niveau1.presentation.Navigator;
+import amiltone.bsaugues.td_niveau1.presentation.navigator.Navigator;
+import amiltone.bsaugues.td_niveau1.presentation.navigator.listener.NavigatorListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ComicListActivity extends AppCompatActivity {
+public class ComicListActivity extends AppCompatActivity implements NavigatorListener {
 
     @BindView(R.id.toolbar)
     public Toolbar toolbar;
@@ -27,9 +26,13 @@ public class ComicListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         navigator = new Navigator(getSupportFragmentManager());
-        TdApplication.getInstance().setNavigator(navigator);
         navigator.launchComicsScreen();
 
     }
 
+    @Override
+    public void requestDisplayDetailFragment(int id) {
+        navigator.displayDetailFragment(id);
+        //TODO : display share icon
+    }
 }

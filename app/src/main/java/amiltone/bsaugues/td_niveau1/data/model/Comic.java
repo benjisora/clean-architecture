@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Comic implements Serializable {
 
-    private long id;
+    private int id;
     private String title;
 
     private String diamondCode;
@@ -27,11 +27,11 @@ public class Comic implements Serializable {
 
     //region getters/setters
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -79,41 +79,11 @@ public class Comic implements Serializable {
         this.creators = creators;
     }
 
-    @Override
-    public String toString() {
-        return "Comic{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", diamondCode='" + diamondCode + '\'' +
-                ", urls=" + getDetailsUrl() +
-                ", dates=" + getOnSaleDate() +
-                ", image=" + image.getUrl() +
-                ", creators=" + creators +
-                '}';
+    public CreatorsEnveloppe getCreators() {
+        return creators;
     }
 
     //endregion
-
-    public String getDetailsUrl(){
-        for(SpecifiedUrl url : urls){
-            if(url.getType().equals("detail"))
-                return url.getUrl();
-        }
-        return null;
-    }
-
-    public String getOnSaleDate(){
-        for(SpecifiedDate date : dates){
-            if(date.getType().equals("onsaleDate"))
-                return date.getDate();
-        }
-        return null;
-    }
-
-    public List<Creator> getCreators(){
-        return this.creators.getCreators();
-    }
-
 
 
 }

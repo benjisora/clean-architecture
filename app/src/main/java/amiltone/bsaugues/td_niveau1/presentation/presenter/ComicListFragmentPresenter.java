@@ -1,47 +1,45 @@
-package amiltone.bsaugues.td_niveau1.presentation;
+package amiltone.bsaugues.td_niveau1.presentation.presenter;
 
-
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import amiltone.bsaugues.td_niveau1.TdApplication;
-import amiltone.bsaugues.td_niveau1.data.ApiRepository;
+import amiltone.bsaugues.td_niveau1.data.repository.ContentRepository;
 import amiltone.bsaugues.td_niveau1.data.model.Comic;
-import amiltone.bsaugues.td_niveau1.presentation.viewmodel.ComicViewModel;
+import amiltone.bsaugues.td_niveau1.presentation.view.viewinterface.ComicListView;
+import amiltone.bsaugues.td_niveau1.presentation.navigator.listener.NavigatorListener;
+import amiltone.bsaugues.td_niveau1.presentation.view.viewmodel.ComicViewModel;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by amiltonedev_dt013 on 20/09/2017.
  */
 
-public class ComicFragmentPresenter {
+public class ComicListFragmentPresenter {
 
     private ComicListView comicListView;
-    private ComicDetailView comicDetailView;
-    private Navigator navigator;
+    private NavigatorListener navigatorListener;
 
-    private ApiRepository apiRepository;
 
-    public ComicFragmentPresenter() {
-        this.apiRepository = TdApplication.getInstance().getApiRepository();
-        this.navigator = TdApplication.getInstance().getNavigator();
+    private ContentRepository apiRepository;
+
+    public ComicListFragmentPresenter(NavigatorListener navigatorListener) {
+        this.navigatorListener = navigatorListener;
+        this.apiRepository = TdApplication.getInstance().getContentRepository();
     }
 
     public void setComicListView(ComicListView comicListView) {
         this.comicListView = comicListView;
     }
 
-    public void setComicDetailView(ComicDetailView comicDetailView) {
-        this.comicDetailView = comicDetailView;
-    }
 
     public void retrieveData() {
         Observable<List<Comic>> comics = this.apiRepository.getComicsList();
-        comics.observeOn(AndroidSchedulers.mainThread())
+        comics.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<Comic>>() {
 
                     @Override
@@ -63,20 +61,15 @@ public class ComicFragmentPresenter {
                 });
     }
 
-    public List<ComicViewModel> getComicsViewModel(List<Comic> comics){
+    public void loadDetails(int id){
+        navigatorListener.requestDisplayDetailFragment(id);
+    }
+
+    private List<ComicViewModel> getComicsViewModel(List<Comic> comics){
         List<ComicViewModel> comicsViewModel = new ArrayList<>();
         for(Comic comic : comics){
             comicsViewModel.add(new ComicViewModel(comic));
         }
         return comicsViewModel;
     }
-
-    public void displayComicDetails(Comic comic){
-        comicDetailView.displayComicDetails(comic);
-    }
-
-    public void loadDetails(Comic comic){
-        navigator.launchDetailsScreen(comic);
-    }
-
 }

@@ -1,8 +1,8 @@
-package amiltone.bsaugues.td_niveau1.data;
+package amiltone.bsaugues.td_niveau1.data.manager.api;
 
 import java.util.List;
 
-import amiltone.bsaugues.td_niveau1.TdApplication;
+import amiltone.bsaugues.td_niveau1.data.manager.api.MarvelApiManager;
 import amiltone.bsaugues.td_niveau1.data.model.Comic;
 import amiltone.bsaugues.td_niveau1.data.model.RootEnveloppe;
 import retrofit2.Retrofit;
@@ -30,22 +30,15 @@ public class MarvelApiManagerImpl implements MarvelApiManager {
     }
 
     private ApiService apiService;
-    private Retrofit retrofit = null;
 
     public MarvelApiManagerImpl() {
-        this.apiService = getRetrofitInstance(TdApplication.BASE_URL).create(ApiService.class);
+        this.apiService = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
+                .build().create(ApiService.class);
     }
 
-    private Retrofit getRetrofitInstance(String baseUrl) {
-        if (retrofit == null)
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(baseUrl)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
-                    .build();
-
-        return retrofit;
-    }
 
     @Override
     public Observable<List<Comic>> getComicsListFromApi() {
