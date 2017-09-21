@@ -13,4 +13,6 @@ public interface CacheManager {
 
     Observable<Comic> getComicById(int id);
 
+    //TODO : fonction saveComicList (enregistre la liste de l'API)
+
 }

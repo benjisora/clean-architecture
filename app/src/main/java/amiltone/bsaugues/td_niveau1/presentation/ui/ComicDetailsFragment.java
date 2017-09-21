@@ -65,7 +65,7 @@ public class ComicDetailsFragment extends Fragment implements ComicDetailView {
         View view = inflater.inflate(R.layout.fragment_comic_details, container, false);
         ButterKnife.bind(this, view);
 
-        //getArguments().getInt(COMIC_KEY);
+
         return view;
     }
 
@@ -73,7 +73,7 @@ public class ComicDetailsFragment extends Fragment implements ComicDetailView {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        comicDetailFragmentPresenter.displayComicDetails();
+        comicDetailFragmentPresenter.retrieveData(getArguments().getInt(COMIC_KEY));
     }
 
     @Override

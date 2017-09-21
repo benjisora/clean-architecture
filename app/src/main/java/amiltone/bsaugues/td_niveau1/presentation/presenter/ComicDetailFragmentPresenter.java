@@ -23,7 +23,6 @@ public class ComicDetailFragmentPresenter {
     private ComicDetailView comicDetailView;
     private NavigatorListener navigatorListener;
 
-
     private ContentRepository contentRepository;
 
     public ComicDetailFragmentPresenter(NavigatorListener navigatorListener) {
@@ -35,17 +34,13 @@ public class ComicDetailFragmentPresenter {
         this.comicDetailView = comicDetailView;
     }
 
-    public void retrieveData() {
+    public void retrieveData(int id) {
 
         //TODO : get data from cache
 
-        Observable<Comic> comic = this.contentRepository.getComicById()
-
-
-
-        Observable<List<Comic>> comics = this.contentRepository.getComicsList();
-        comics.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<Comic>>() {
+        Observable<Comic> comic = this.contentRepository.getComicById(id);
+        comic.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Comic>() {
 
                     @Override
                     public void onCompleted() {
@@ -59,11 +54,12 @@ public class ComicDetailFragmentPresenter {
                     }
 
                     @Override
-                    public void onNext(List<Comic> comics) {
+                    public void onNext(Comic comic) {
 
                         comicDetailView.displayComicDetails(new ComicViewModel(comic));
                     }
                 });
+
     }
 
     public void displayComicDetails(ComicViewModel comicViewModel){
