@@ -1,5 +1,7 @@
 package amiltone.bsaugues.td_niveau1.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -17,9 +19,10 @@ public class Comic {
 
     private List<SpecifiedDate> dates;
 
-    private Image thumbnail;
+    @SerializedName("thumbnail")
+    private Image image;
 
-    private List<Creator> creators;
+    private CreatorsEnveloppe creators;
 
 
     //region getters/setters
@@ -64,23 +67,51 @@ public class Comic {
         this.dates = dates;
     }
 
-    public Image getThumbnail() {
-        return thumbnail;
+    public Image getImage() {
+        return image;
     }
 
-    public void setThumbnail(Image thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
-    public List<Creator> getCreators() {
+    public CreatorsEnveloppe getCreators() {
         return creators;
     }
 
-    public void setCreators(List<Creator> creators) {
+    public void setCreators(CreatorsEnveloppe creators) {
         this.creators = creators;
     }
 
+    @Override
+    public String toString() {
+        return "Comic{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", diamondCode='" + diamondCode + '\'' +
+                ", urls=" + getDetailsUrl() +
+                ", dates=" + getOnSaleDate() +
+                ", image=" + image.getUrl() +
+                ", creators=" + creators +
+                '}';
+    }
 
     //endregion
+
+    public String getDetailsUrl(){
+        for(SpecifiedUrl url : urls){
+            if(url.getType().equals("detail"))
+                return url.getUrl();
+        }
+        return null;
+    }
+
+    public String getOnSaleDate(){
+        for(SpecifiedDate date : dates){
+            if(date.getType().equals("onsaleDate"))
+                return date.getDate();
+        }
+        return null;
+    }
 
 }

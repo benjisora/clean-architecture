@@ -13,5 +13,5 @@ import rx.Observable;
  */
 
 public interface MarvelApiManager {
-    Observable<List<Comic>> getComicsList();
+    Observable<List<Comic>> getComicsListFromApi();
 }

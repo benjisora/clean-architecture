@@ -2,8 +2,8 @@ package amiltone.bsaugues.td_niveau1;
 
 import android.app.Application;
 
+import amiltone.bsaugues.td_niveau1.data.ApiRepository;
 import amiltone.bsaugues.td_niveau1.data.MarvelApiManagerImpl;
-import amiltone.bsaugues.td_niveau1.data.Repository;
 import amiltone.bsaugues.td_niveau1.presentation.Navigator;
 
 /**
@@ -14,27 +14,25 @@ public class TdApplication extends Application {
 
     public static final String BASE_URL = "http://gateway.marvel.com/v1/public/";
 
-    private static final TdApplication ourInstance = new TdApplication();
-
-    private Repository repository;
+    private ApiRepository apiRepository = new ApiRepository(new MarvelApiManagerImpl());
     private Navigator navigator;
+
+    private static final TdApplication ourInstance = new TdApplication();
 
     public static TdApplication getInstance() {
         return ourInstance;
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        repository = new Repository(new MarvelApiManagerImpl());
-        navigator = new Navigator();
-    }
-
-    public Repository getRepository() {
-        return repository;
+    public void setNavigator(Navigator navigator) {
+        this.navigator = navigator;
     }
 
     public Navigator getNavigator() {
         return navigator;
     }
+
+    public ApiRepository getApiRepository() {
+        return apiRepository;
+    }
+
 }

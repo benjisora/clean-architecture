@@ -21,8 +21,12 @@ import rx.schedulers.Schedulers;
 public class MarvelApiManagerImpl implements MarvelApiManager {
 
     interface ApiService {
-        @GET("/comics")
-        Observable<RootEnveloppe> getComicsList(@Query("apikey") String apiKey, @Query("ts") String timeStamp, @Query("hash") String hash, @Query("format") String format, @Query("dateDescriptor") String dateDescriptor);
+        @GET("comics")
+        Observable<RootEnveloppe> getComicsList(@Query("apikey") String apiKey,
+                                                @Query("ts") String timeStamp,
+                                                @Query("hash") String hash,
+                                                @Query("format") String format,
+                                                @Query("dateDescriptor") String dateDescriptor);
     }
 
     private ApiService apiService;
@@ -44,9 +48,9 @@ public class MarvelApiManagerImpl implements MarvelApiManager {
     }
 
     @Override
-    public Observable<List<Comic>> getComicsList() {
+    public Observable<List<Comic>> getComicsListFromApi() {
         return apiService.getComicsList("3a1d27d3ebfd7097c0b6dd5a067266cf",
-                "1505917363",
+                "1473236363",
                 "9945a7b9b2b8145a570e619ab7680592",
                 "comic",
                 "lastWeek")

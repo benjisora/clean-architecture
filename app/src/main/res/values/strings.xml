@@ -2,4 +2,6 @@
     <string name="app_name">TD_Niveau1</string>
     <string name="title_activity_main">Marvel Comic List</string>
     <string name="action_share">Share comic</string>
+    <string name="title_activity_comic_list">ComicListActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>

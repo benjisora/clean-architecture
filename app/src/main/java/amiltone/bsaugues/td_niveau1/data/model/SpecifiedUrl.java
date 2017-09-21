@@ -5,6 +5,7 @@ package amiltone.bsaugues.td_niveau1.data.model;
  */
 
 class SpecifiedUrl {
+
     private String type;
     private String url;
 

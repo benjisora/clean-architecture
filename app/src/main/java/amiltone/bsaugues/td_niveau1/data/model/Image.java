@@ -26,6 +26,6 @@ public class Image {
     }
 
     public String getUrl() {
-        return this.path + this.extension;
+        return this.path + "." + this.extension;
     }
 }

@@ -19,7 +19,7 @@ public class ComicViewModel {
     }
 
     public String getComicImageUrl() {
-        return this.comic.getThumbnail().getUrl();
+        return this.comic.getImage().getUrl();
     }
 
     public Comic getComic() {
