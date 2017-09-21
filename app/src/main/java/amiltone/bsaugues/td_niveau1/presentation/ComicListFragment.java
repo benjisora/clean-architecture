@@ -1,4 +1,4 @@
-package amiltone.bsaugues.td_niveau1.presentation.viewcontroler;
+package amiltone.bsaugues.td_niveau1.presentation;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,9 +13,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import amiltone.bsaugues.td_niveau1.R;
-import amiltone.bsaugues.td_niveau1.data.model.Comic;
-import amiltone.bsaugues.td_niveau1.presentation.ComicListView;
-import amiltone.bsaugues.td_niveau1.presentation.FragmentPresenter;
+import amiltone.bsaugues.td_niveau1.presentation.viewmodel.ComicViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -24,13 +22,16 @@ public class ComicListFragment extends Fragment implements ComicListView {
     @BindView(R.id.recycler_view)
     public RecyclerView recyclerView;
 
-    private FragmentPresenter fragmentPresenter;
-    private ComicRecyclerViewAdapter adapter;
+    private ComicFragmentPresenter fragmentPresenter;
+
+    interface OnListFragmentInteractionListener {
+        void onComicSelected(ComicViewModel comic);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fragmentPresenter = new FragmentPresenter();
+        fragmentPresenter = new ComicFragmentPresenter();
         fragmentPresenter.setComicListView(this);
     }
 
@@ -60,21 +61,16 @@ public class ComicListFragment extends Fragment implements ComicListView {
     }
 
     @Override
-    public void displayComics(List<Comic> comicList) {
-
-
+    public void displayComics(List<ComicViewModel> comicList) {
 
         recyclerView.setAdapter(new ComicRecyclerViewAdapter(getContext(), comicList, new OnListFragmentInteractionListener() {
             @Override
-            public void onComicSelected(Comic comic) {
-                fragmentPresenter.loadDetails(comic);
+            public void onComicSelected(ComicViewModel comic) {
+                fragmentPresenter.loadDetails(comic.getComic());
             }
         }));
-
     }
 
-    interface OnListFragmentInteractionListener {
-        void onComicSelected(Comic comic);
-    }
+
 
 }

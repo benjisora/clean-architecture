@@ -2,13 +2,14 @@ package amiltone.bsaugues.td_niveau1.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by amiltonedev_dt013 on 20/09/2017.
  */
 
-public class Comic {
+public class Comic implements Serializable {
 
     private long id;
     private String title;
@@ -23,7 +24,6 @@ public class Comic {
     private Image image;
 
     private CreatorsEnveloppe creators;
-
 
     //region getters/setters
 
@@ -75,10 +75,6 @@ public class Comic {
         this.image = image;
     }
 
-    public CreatorsEnveloppe getCreators() {
-        return creators;
-    }
-
     public void setCreators(CreatorsEnveloppe creators) {
         this.creators = creators;
     }
@@ -113,5 +109,11 @@ public class Comic {
         }
         return null;
     }
+
+    public List<Creator> getCreators(){
+        return this.creators.getCreators();
+    }
+
+
 
 }

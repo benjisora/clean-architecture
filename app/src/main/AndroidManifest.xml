@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".presentation.viewcontroler.ComicListActivity"
+            android:name=".presentation.ComicListActivity"
             android:label="@string/title_activity_comic_list"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

@@ -1,4 +1,4 @@
-package amiltone.bsaugues.td_niveau1.presentation.viewcontroler;
+package amiltone.bsaugues.td_niveau1.presentation;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -14,18 +14,18 @@ import java.util.List;
 
 import amiltone.bsaugues.td_niveau1.R;
 import amiltone.bsaugues.td_niveau1.data.model.Comic;
-import amiltone.bsaugues.td_niveau1.presentation.viewcontroler.ComicListFragment.OnListFragmentInteractionListener;
+import amiltone.bsaugues.td_niveau1.presentation.viewmodel.ComicViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class ComicRecyclerViewAdapter extends RecyclerView.Adapter<ComicRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Comic> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final List<ComicViewModel> mValues;
+    private final ComicListFragment.OnListFragmentInteractionListener mListener;
     private final Context mContext;
 
-    public ComicRecyclerViewAdapter(Context context, List<Comic> items, OnListFragmentInteractionListener listener) {
+    public ComicRecyclerViewAdapter(Context context, List<ComicViewModel> items, ComicListFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
         mContext = context;
@@ -42,12 +42,10 @@ public class ComicRecyclerViewAdapter extends RecyclerView.Adapter<ComicRecycler
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
-        holder.mTitle.setText(holder.mItem.getTitle());
-        holder.mDate.setText(holder.mItem.getOnSaleDate());
+        holder.mTitle.setText(holder.mItem.getComicTitle());
+        holder.mDate.setText(holder.mItem.getComicDate());
 
-        System.out.println(holder.mItem.getImage().getUrl());
-
-        Picasso.with(mContext).load(holder.mItem.getImage().getUrl()).fit().centerCrop().into(holder.mThumbnail);
+        Picasso.with(mContext).load(holder.mItem.getComicImageUrl()).fit().centerCrop().into(holder.mThumbnail);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +74,7 @@ public class ComicRecyclerViewAdapter extends RecyclerView.Adapter<ComicRecycler
         @BindView(R.id.comic_row_thumbnail)
         public ImageView mThumbnail;
 
-        public Comic mItem;
+        public ComicViewModel mItem;
 
         public ViewHolder(View view) {
             super(view);

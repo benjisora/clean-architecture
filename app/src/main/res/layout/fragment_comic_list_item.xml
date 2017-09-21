@@ -25,9 +25,10 @@
             <TextView
                 android:id="@+id/comic_row_title"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="7"
+                android:gravity="center_vertical"
                 android:text="title"
                 android:textSize="25sp"
                 android:textStyle="bold" />
@@ -35,8 +36,9 @@
             <TextView
                 android:id="@+id/comic_row_date"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="3"
+                android:gravity="center_vertical"
                 android:text="date"
                 android:textAlignment="textEnd" />
 

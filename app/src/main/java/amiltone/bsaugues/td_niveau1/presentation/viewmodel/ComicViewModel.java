@@ -10,12 +10,16 @@ public class ComicViewModel {
 
     private Comic comic;
 
+    public ComicViewModel(Comic comic){
+        this.comic = comic;
+    }
+
     public String getComicTitle() {
         return this.comic.getTitle();
     }
 
     public String getComicDate() {
-        return "";
+        return this.comic.getOnSaleDate();
     }
 
     public String getComicImageUrl() {

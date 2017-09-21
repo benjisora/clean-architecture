@@ -1,4 +1,4 @@
-package amiltone.bsaugues.td_niveau1.presentation.viewcontroler;
+package amiltone.bsaugues.td_niveau1.presentation;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
