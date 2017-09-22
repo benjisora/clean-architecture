@@ -1,28 +1,42 @@
-package amiltone.bsaugues.td_niveau1.data.model;
+package amiltone.bsaugues.td_niveau1.data.manager.database.entity;
 
 import com.google.gson.annotations.SerializedName;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.ForeignKey;
+import com.raizlabs.android.dbflow.annotation.OneToMany;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.io.Serializable;
 import java.util.List;
 
+import amiltone.bsaugues.td_niveau1.data.manager.database.DatabaseManager;
+import amiltone.bsaugues.td_niveau1.data.manager.database.DatabaseManagerImpl;
+
 /**
  * Created by amiltonedev_dt013 on 20/09/2017.
  */
-
+@Table(database = DatabaseManagerImpl.class)
 public class Comic implements Serializable {
 
+    @PrimaryKey
     private int id;
+
+    @Column
     private String title;
 
+    @Column
     private String diamondCode;
 
     private List<SpecifiedUrl> urls;
 
     private List<SpecifiedDate> dates;
 
-    @SerializedName("thumbnail")
+    @ForeignKey(stubbedRelationship = true)
     private Image image;
 
+    @ForeignKey(stubbedRelationship = true)
     private CreatorsEnveloppe creators;
 
     //region getters/setters
@@ -85,5 +99,5 @@ public class Comic implements Serializable {
 
     //endregion
 
-
+    
 }

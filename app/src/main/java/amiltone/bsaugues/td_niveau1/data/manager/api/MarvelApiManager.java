@@ -1,4 +1,4 @@
-package amiltone.bsaugues.td_niveau1.data;
+package amiltone.bsaugues.td_niveau1.data.manager.api;
 
 import java.util.List;
 
@@ -13,5 +13,11 @@ import rx.Observable;
  */
 
 public interface MarvelApiManager {
-    Observable<List<Comic>> getComicsList();
+
+    String BASE_URL = "http://gateway.marvel.com/v1/public/";
+
+    Observable<List<Comic>> getComicsListFromApi();
+
+    Observable<Comic> getComicFromApi();
+
 }

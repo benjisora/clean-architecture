@@ -1,8 +1,8 @@
-package amiltone.bsaugues.td_niveau1.data;
+package amiltone.bsaugues.td_niveau1.data.manager.api;
 
 import java.util.List;
 
-import amiltone.bsaugues.td_niveau1.TdApplication;
+import amiltone.bsaugues.td_niveau1.data.manager.api.MarvelApiManager;
 import amiltone.bsaugues.td_niveau1.data.model.Comic;
 import amiltone.bsaugues.td_niveau1.data.model.RootEnveloppe;
 import retrofit2.Retrofit;
@@ -21,32 +21,29 @@ import rx.schedulers.Schedulers;
 public class MarvelApiManagerImpl implements MarvelApiManager {
 
     interface ApiService {
-        @GET("/comics")
-        Observable<RootEnveloppe> getComicsList(@Query("apikey") String apiKey, @Query("ts") String timeStamp, @Query("hash") String hash, @Query("format") String format, @Query("dateDescriptor") String dateDescriptor);
+        @GET("comics")
+        Observable<RootEnveloppe> getComicsList(@Query("apikey") String apiKey,
+                                                @Query("ts") String timeStamp,
+                                                @Query("hash") String hash,
+                                                @Query("format") String format,
+                                                @Query("dateDescriptor") String dateDescriptor);
     }
 
     private ApiService apiService;
-    private Retrofit retrofit = null;
 
     public MarvelApiManagerImpl() {
-        this.apiService = getRetrofitInstance(TdApplication.BASE_URL).create(ApiService.class);
+        this.apiService = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
+                .build().create(ApiService.class);
     }
 
-    private Retrofit getRetrofitInstance(String baseUrl) {
-        if (retrofit == null)
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(baseUrl)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
-                    .build();
-
-        return retrofit;
-    }
 
     @Override
-    public Observable<List<Comic>> getComicsList() {
+    public Observable<List<Comic>> getComicsListFromApi() {
         return apiService.getComicsList("3a1d27d3ebfd7097c0b6dd5a067266cf",
-                "1505917363",
+                "1473236363",
                 "9945a7b9b2b8145a570e619ab7680592",
                 "comic",
                 "lastWeek")
@@ -56,5 +53,10 @@ public class MarvelApiManagerImpl implements MarvelApiManager {
                         return rootEnveloppe.data.results;
                     }
                 });
+    }
+
+    @Override
+    public Observable<Comic> getComicFromApi() {
+        return null;
     }
 }

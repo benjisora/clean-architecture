@@ -1,10 +1,12 @@
 package amiltone.bsaugues.td_niveau1.data.model;
 
+import java.io.Serializable;
+
 /**
  * Created by amiltonedev_dt013 on 20/09/2017.
  */
 
-public class Creator {
+public class Creator implements Serializable{
 
     private String name;
     private String role;
