@@ -2,7 +2,10 @@ package amiltone.bsaugues.td_niveau1;
 
 import android.app.Application;
 
+import com.raizlabs.android.dbflow.config.FlowManager;
+
 import amiltone.bsaugues.td_niveau1.data.manager.cache.CacheManagerImpl;
+import amiltone.bsaugues.td_niveau1.data.manager.database.DatabaseManagerImpl;
 import amiltone.bsaugues.td_niveau1.data.repository.ContentRepository;
 import amiltone.bsaugues.td_niveau1.data.manager.api.MarvelApiManagerImpl;
 import amiltone.bsaugues.td_niveau1.presentation.navigator.Navigator;
@@ -19,7 +22,7 @@ public class TdApplication extends Application {
     private static final TdApplication ourInstance = new TdApplication();
 
     public TdApplication(){
-        contentRepository = new ContentRepository(new MarvelApiManagerImpl(), new CacheManagerImpl());
+        contentRepository = new ContentRepository(new MarvelApiManagerImpl(), new CacheManagerImpl(), new DatabaseManagerImpl(this));
     }
 
     public static TdApplication getInstance() {

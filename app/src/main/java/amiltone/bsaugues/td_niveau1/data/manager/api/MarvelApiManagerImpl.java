@@ -54,4 +54,9 @@ public class MarvelApiManagerImpl implements MarvelApiManager {
                     }
                 });
     }
+
+    @Override
+    public Observable<Comic> getComicFromApi() {
+        return null;
+    }
 }

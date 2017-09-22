@@ -2,6 +2,7 @@ package amiltone.bsaugues.td_niveau1.data.manager.cache;
 
 import java.util.List;
 
+import amiltone.bsaugues.td_niveau1.data.exception.NoComicInCacheException;
 import amiltone.bsaugues.td_niveau1.data.model.Comic;
 import rx.Observable;
 
@@ -11,8 +12,13 @@ import rx.Observable;
 
 public interface CacheManager {
 
-    Observable<Comic> getComicById(int id);
+    Comic getComicById(int id);
 
     //TODO : fonction saveComicList (enregistre la liste de l'API)
 
+    void saveComicList(List<Comic> comics);
+
+    List<Comic> getCachedList() throws NoComicInCacheException;
+
+    boolean isCacheEmpty();
 }

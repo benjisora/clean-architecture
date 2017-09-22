@@ -26,7 +26,7 @@ public class Navigator {
         loadFragment(fragment,true);
     }
 
-    public void launchComicsScreen(){
+    public void displayComicList(){
         ComicListFragment fragment = ComicListFragment.newInstance();
         loadFragment(fragment,false);
 

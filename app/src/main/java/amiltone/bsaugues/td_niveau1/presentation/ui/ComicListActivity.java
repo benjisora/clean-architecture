@@ -26,7 +26,7 @@ public class ComicListActivity extends AppCompatActivity implements NavigatorLis
         setSupportActionBar(toolbar);
 
         navigator = new Navigator(getSupportFragmentManager());
-        navigator.launchComicsScreen();
+        navigator.displayComicList();
 
     }
 

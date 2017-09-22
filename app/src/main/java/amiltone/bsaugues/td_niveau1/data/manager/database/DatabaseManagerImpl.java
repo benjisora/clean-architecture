@@ -1,23 +1,30 @@
-package amiltone.bsaugues.td_niveau1.data.manager.cache;
+package amiltone.bsaugues.td_niveau1.data.manager.database;
+
+import com.raizlabs.android.dbflow.annotation.Database;
+import com.raizlabs.android.dbflow.config.DatabaseDefinition;
+import com.raizlabs.android.dbflow.config.FlowManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import amiltone.bsaugues.td_niveau1.TdApplication;
 import amiltone.bsaugues.td_niveau1.data.exception.ComicNotFoundException;
-import amiltone.bsaugues.td_niveau1.data.exception.NoComicInCacheException;
 import amiltone.bsaugues.td_niveau1.data.model.Comic;
-import rx.Observable;
 
 /**
  * Created by amiltonedev_dt013 on 20/09/2017.
  */
+@Database(name = DatabaseManager.NAME, version = DatabaseManager.VERSION)
+public class DatabaseManagerImpl implements DatabaseManager {
 
-public class CacheManagerImpl implements CacheManager {
+    private DatabaseDefinition database;
 
     private List<Comic> comicList;
 
-    public CacheManagerImpl() {
+    public DatabaseManagerImpl(TdApplication applicationContext) {
         comicList = new ArrayList<>();
+        FlowManager.init(applicationContext);
+        database = FlowManager.getDatabase(DatabaseManagerImpl.class);
     }
 
     @Override
@@ -38,8 +45,8 @@ public class CacheManagerImpl implements CacheManager {
     }
 
     @Override
-    public List<Comic> getCachedList() {
-        if(isCacheEmpty()){
+    public List<Comic> getDatabaseList() {
+        if(isDatabaseEmpty()){
             throw null;
         } else {
             return comicList;
@@ -48,7 +55,7 @@ public class CacheManagerImpl implements CacheManager {
     }
 
     @Override
-    public boolean isCacheEmpty() {
+    public boolean isDatabaseEmpty() {
         return comicList == null || comicList.isEmpty();
     }
 
