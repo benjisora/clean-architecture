@@ -6,7 +6,7 @@ import java.util.List;
 
 import amiltone.bsaugues.td_niveau1.TdApplication;
 import amiltone.bsaugues.td_niveau1.data.repository.ContentRepository;
-import amiltone.bsaugues.td_niveau1.data.model.Comic;
+import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewinterface.ComicListView;
 import amiltone.bsaugues.td_niveau1.presentation.navigator.listener.NavigatorListener;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewmodel.ComicViewModel;
@@ -24,7 +24,6 @@ public class ComicListFragmentPresenter {
     private ComicListView comicListView;
     private NavigatorListener navigatorListener;
 
-
     private ContentRepository apiRepository;
 
     public ComicListFragmentPresenter(NavigatorListener navigatorListener) {
@@ -38,9 +37,9 @@ public class ComicListFragmentPresenter {
 
 
     public void retrieveData() {
-        Observable<List<Comic>> comics = this.apiRepository.getComicsList();
+        Observable<List<ComicEntity>> comics = this.apiRepository.getComicsList();
         comics.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<Comic>>() {
+                .subscribe(new Subscriber<List<ComicEntity>>() {
 
                     @Override
                     public void onCompleted() {
@@ -54,7 +53,7 @@ public class ComicListFragmentPresenter {
                     }
 
                     @Override
-                    public void onNext(List<Comic> comics) {
+                    public void onNext(List<ComicEntity> comics) {
 
                         comicListView.displayComics(getComicsViewModel(comics));
                     }
@@ -65,9 +64,9 @@ public class ComicListFragmentPresenter {
         navigatorListener.requestDisplayDetailFragment(id);
     }
 
-    private List<ComicViewModel> getComicsViewModel(List<Comic> comics){
+    private List<ComicViewModel> getComicsViewModel(List<ComicEntity> comics){
         List<ComicViewModel> comicsViewModel = new ArrayList<>();
-        for(Comic comic : comics){
+        for(ComicEntity comic : comics){
             comicsViewModel.add(new ComicViewModel(comic));
         }
         return comicsViewModel;

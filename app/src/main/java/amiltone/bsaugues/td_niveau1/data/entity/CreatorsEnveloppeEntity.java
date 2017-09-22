@@ -1,4 +1,4 @@
-package amiltone.bsaugues.td_niveau1.data.manager.database.entity;
+package amiltone.bsaugues.td_niveau1.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -9,16 +9,16 @@ import java.util.List;
  * Created by amiltonedev_dt013 on 21/09/2017.
  */
 
-public class CreatorsEnveloppe implements Serializable {
+public class CreatorsEnveloppeEntity implements Serializable {
 
     @SerializedName("items")
-    private List<Creator> creators;
+    private List<CreatorEntity> creators;
 
-    public List<Creator> getCreators() {
+    public List<CreatorEntity> getCreators() {
         return creators;
     }
 
-    public void setCreators(List<Creator> creators) {
+    public void setCreators(List<CreatorEntity> creators) {
         this.creators = creators;
     }
 

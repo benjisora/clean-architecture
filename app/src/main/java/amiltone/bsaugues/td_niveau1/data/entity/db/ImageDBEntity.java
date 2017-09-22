@@ -1,7 +1,8 @@
-package amiltone.bsaugues.td_niveau1.data.manager.database.entity;
+package amiltone.bsaugues.td_niveau1.data.entity.db;
 
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.io.Serializable;
 
@@ -11,7 +12,7 @@ import amiltone.bsaugues.td_niveau1.data.manager.database.DatabaseManagerImpl;
  * Created by amiltonedev_dt013 on 20/09/2017.
  */
 @Table(database = DatabaseManagerImpl.class)
-public class Image implements Serializable {
+public class ImageDBEntity extends BaseModel implements Serializable {
 
     @PrimaryKey
     private String path;

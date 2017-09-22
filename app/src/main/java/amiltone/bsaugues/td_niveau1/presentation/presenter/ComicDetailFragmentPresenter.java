@@ -1,11 +1,9 @@
 package amiltone.bsaugues.td_niveau1.presentation.presenter;
 
 
-import java.util.List;
-
 import amiltone.bsaugues.td_niveau1.TdApplication;
 import amiltone.bsaugues.td_niveau1.data.repository.ContentRepository;
-import amiltone.bsaugues.td_niveau1.data.model.Comic;
+import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewinterface.ComicDetailView;
 import amiltone.bsaugues.td_niveau1.presentation.navigator.listener.NavigatorListener;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewmodel.ComicViewModel;
@@ -38,9 +36,9 @@ public class ComicDetailFragmentPresenter {
 
         //TODO : get data from cache
 
-        Observable<Comic> comic = this.contentRepository.getComicById(id);
+        Observable<ComicEntity> comic = this.contentRepository.getComicById(id);
         comic.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Comic>() {
+                .subscribe(new Subscriber<ComicEntity>() {
 
                     @Override
                     public void onCompleted() {
@@ -54,7 +52,7 @@ public class ComicDetailFragmentPresenter {
                     }
 
                     @Override
-                    public void onNext(Comic comic) {
+                    public void onNext(ComicEntity comic) {
 
                         comicDetailView.displayComicDetails(new ComicViewModel(comic));
                     }

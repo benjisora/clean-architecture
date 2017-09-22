@@ -1,4 +1,4 @@
-package amiltone.bsaugues.td_niveau1.data.model;
+package amiltone.bsaugues.td_niveau1.data.entity.remote;
 
 import java.io.Serializable;
 
@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by amiltonedev_dt013 on 20/09/2017.
  */
 
-public class Image implements Serializable {
+public class ImageRemoteEntity implements Serializable {
 
     private String path;
     private String extension;

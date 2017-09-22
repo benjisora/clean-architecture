@@ -1,4 +1,4 @@
-package amiltone.bsaugues.td_niveau1.data.model;
+package amiltone.bsaugues.td_niveau1.data.entity.remote;
 
 import java.io.Serializable;
 
@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by amiltonedev_dt013 on 20/09/2017.
  */
 
-public class Creator implements Serializable{
+public class CreatorRemoteEntity implements Serializable{
 
     private String name;
     private String role;
@@ -29,7 +29,7 @@ public class Creator implements Serializable{
 
     @Override
     public String toString() {
-        return "Creator{" +
+        return "CreatorRemoteEntity{" +
                 "name='" + name + '\'' +
                 ", role='" + role + '\'' +
                 '}';

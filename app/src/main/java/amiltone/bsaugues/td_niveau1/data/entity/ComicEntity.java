@@ -1,4 +1,4 @@
-package amiltone.bsaugues.td_niveau1.data.model;
+package amiltone.bsaugues.td_niveau1.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -9,21 +9,21 @@ import java.util.List;
  * Created by amiltonedev_dt013 on 20/09/2017.
  */
 
-public class Comic implements Serializable {
+public class ComicEntity implements Serializable {
 
     private int id;
     private String title;
 
     private String diamondCode;
 
-    private List<SpecifiedUrl> urls;
+    private List<SpecifiedUrlEntity> urls;
 
-    private List<SpecifiedDate> dates;
+    private List<SpecifiedDateEntity> dates;
 
     @SerializedName("thumbnail")
-    private Image image;
+    private ImageEntity image;
 
-    private CreatorsEnveloppe creators;
+    private CreatorsEnveloppeEntity creators;
 
     //region getters/setters
 
@@ -51,35 +51,35 @@ public class Comic implements Serializable {
         this.diamondCode = diamondCode;
     }
 
-    public List<SpecifiedUrl> getUrls() {
+    public List<SpecifiedUrlEntity> getUrls() {
         return urls;
     }
 
-    public void setUrls(List<SpecifiedUrl> urls) {
+    public void setUrls(List<SpecifiedUrlEntity> urls) {
         this.urls = urls;
     }
 
-    public List<SpecifiedDate> getDates() {
+    public List<SpecifiedDateEntity> getDates() {
         return dates;
     }
 
-    public void setDates(List<SpecifiedDate> dates) {
+    public void setDates(List<SpecifiedDateEntity> dates) {
         this.dates = dates;
     }
 
-    public Image getImage() {
+    public ImageEntity getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(ImageEntity image) {
         this.image = image;
     }
 
-    public void setCreators(CreatorsEnveloppe creators) {
+    public void setCreators(CreatorsEnveloppeEntity creators) {
         this.creators = creators;
     }
 
-    public CreatorsEnveloppe getCreators() {
+    public CreatorsEnveloppeEntity getCreators() {
         return creators;
     }
 

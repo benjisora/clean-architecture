@@ -2,10 +2,10 @@ package amiltone.bsaugues.td_niveau1.presentation.view.viewmodel;
 
 import java.util.List;
 
-import amiltone.bsaugues.td_niveau1.data.model.Comic;
-import amiltone.bsaugues.td_niveau1.data.model.Creator;
-import amiltone.bsaugues.td_niveau1.data.model.SpecifiedDate;
-import amiltone.bsaugues.td_niveau1.data.model.SpecifiedUrl;
+import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
+import amiltone.bsaugues.td_niveau1.data.entity.CreatorEntity;
+import amiltone.bsaugues.td_niveau1.data.entity.SpecifiedDateEntity;
+import amiltone.bsaugues.td_niveau1.data.entity.SpecifiedUrlEntity;
 
 /**
  * Created by amiltonedev_dt013 on 20/09/2017.
@@ -13,9 +13,9 @@ import amiltone.bsaugues.td_niveau1.data.model.SpecifiedUrl;
 
 public class ComicViewModel {
 
-    private Comic comic;
+    private ComicEntity comic;
 
-    public ComicViewModel(Comic comic){
+    public ComicViewModel(ComicEntity comic){
         this.comic = comic;
     }
 
@@ -31,12 +31,12 @@ public class ComicViewModel {
         return this.getThumbnailUrl();
     }
 
-    public Comic getComic() {
+    public ComicEntity getComic() {
         return this.comic;
     }
 
     public String getDetailsUrl(){
-        for(SpecifiedUrl url : this.comic.getUrls()){
+        for(SpecifiedUrlEntity url : this.comic.getUrls()){
             if(url.getType().equals("detail"))
                 return url.getUrl();
         }
@@ -44,14 +44,14 @@ public class ComicViewModel {
     }
 
     public String getOnSaleDate(){
-        for(SpecifiedDate date : this.comic.getDates()){
+        for(SpecifiedDateEntity date : this.comic.getDates()){
             if(date.getType().equals("onsaleDate"))
                 return date.getDate();
         }
         return null;
     }
 
-    public List<Creator> getCreators(){
+    public List<CreatorEntity> getCreators(){
         return this.comic.getCreators().getCreators();
     }
 

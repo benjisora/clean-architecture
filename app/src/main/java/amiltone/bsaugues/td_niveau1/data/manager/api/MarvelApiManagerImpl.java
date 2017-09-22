@@ -2,9 +2,10 @@ package amiltone.bsaugues.td_niveau1.data.manager.api;
 
 import java.util.List;
 
-import amiltone.bsaugues.td_niveau1.data.manager.api.MarvelApiManager;
-import amiltone.bsaugues.td_niveau1.data.model.Comic;
-import amiltone.bsaugues.td_niveau1.data.model.RootEnveloppe;
+import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
+import amiltone.bsaugues.td_niveau1.data.entity.RootEnveloppeEntity;
+import amiltone.bsaugues.td_niveau1.data.entity.remote.ComicRemoteEntity;
+import amiltone.bsaugues.td_niveau1.data.entity.remote.RootEnveloppeRemoteEntity;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -22,11 +23,11 @@ public class MarvelApiManagerImpl implements MarvelApiManager {
 
     interface ApiService {
         @GET("comics")
-        Observable<RootEnveloppe> getComicsList(@Query("apikey") String apiKey,
-                                                @Query("ts") String timeStamp,
-                                                @Query("hash") String hash,
-                                                @Query("format") String format,
-                                                @Query("dateDescriptor") String dateDescriptor);
+        Observable<RootEnveloppeRemoteEntity> getComicsList(@Query("apikey") String apiKey,
+                                                      @Query("ts") String timeStamp,
+                                                      @Query("hash") String hash,
+                                                      @Query("format") String format,
+                                                      @Query("dateDescriptor") String dateDescriptor);
     }
 
     private ApiService apiService;
@@ -41,22 +42,18 @@ public class MarvelApiManagerImpl implements MarvelApiManager {
 
 
     @Override
-    public Observable<List<Comic>> getComicsListFromApi() {
+    public Observable<List<ComicRemoteEntity>> getComicsListFromApi() {
         return apiService.getComicsList("3a1d27d3ebfd7097c0b6dd5a067266cf",
                 "1473236363",
                 "9945a7b9b2b8145a570e619ab7680592",
                 "comic",
                 "lastWeek")
-                .map(new Func1<RootEnveloppe, List<Comic>>() {
+                .map(new Func1<RootEnveloppeRemoteEntity, List<ComicRemoteEntity>>() {
                     @Override
-                    public List<Comic> call(RootEnveloppe rootEnveloppe) {
-                        return rootEnveloppe.data.results;
+                    public List<ComicRemoteEntity> call(RootEnveloppeRemoteEntity rootEnveloppeRemoteEntity) {
+                        return rootEnveloppeRemoteEntity.data.results;
                     }
                 });
     }
 
-    @Override
-    public Observable<Comic> getComicFromApi() {
-        return null;
-    }
 }

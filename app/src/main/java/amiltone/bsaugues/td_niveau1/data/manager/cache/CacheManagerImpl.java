@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import amiltone.bsaugues.td_niveau1.data.exception.ComicNotFoundException;
+import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
 import amiltone.bsaugues.td_niveau1.data.exception.NoComicInCacheException;
-import amiltone.bsaugues.td_niveau1.data.model.Comic;
-import rx.Observable;
 
 /**
  * Created by amiltonedev_dt013 on 20/09/2017.
@@ -14,16 +13,16 @@ import rx.Observable;
 
 public class CacheManagerImpl implements CacheManager {
 
-    private List<Comic> comicList;
+    private List<ComicEntity> comicList;
 
     public CacheManagerImpl() {
         comicList = new ArrayList<>();
     }
 
     @Override
-    public Comic getComicById(int id) {
+    public ComicEntity getComicById(int id) {
 
-        for(Comic comic : comicList){
+        for(ComicEntity comic : comicList){
             if(comic.getId() == id){
                 return comic;
             }
@@ -32,15 +31,15 @@ public class CacheManagerImpl implements CacheManager {
     }
 
     @Override
-    public void saveComicList(List<Comic> comics) {
+    public void saveComicList(List<ComicEntity> comics) {
         comicList.clear();
         comicList.addAll(comics);
     }
 
     @Override
-    public List<Comic> getCachedList() {
+    public List<ComicEntity> getCachedList() {
         if(isCacheEmpty()){
-            throw null;
+            throw new NoComicInCacheException();
         } else {
             return comicList;
         }

@@ -2,8 +2,9 @@ package amiltone.bsaugues.td_niveau1.data.manager.database;
 
 import java.util.List;
 
+import amiltone.bsaugues.td_niveau1.data.entity.db.ComicDBEntity;
 import amiltone.bsaugues.td_niveau1.data.exception.NoComicInCacheException;
-import amiltone.bsaugues.td_niveau1.data.model.Comic;
+import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
 
 /**
  * Created by amiltonedev_dt013 on 20/09/2017.
@@ -15,11 +16,11 @@ public interface DatabaseManager {
 
     int VERSION = 1;
 
-    Comic getComicById(int id);
+    ComicDBEntity getComicById(int id);
 
-    void saveComicList(List<Comic> comics);
+    void saveComicList(List<ComicDBEntity> comics);
 
-    List<Comic> getDatabaseList() throws NoComicInCacheException;
+    List<ComicDBEntity> getDatabaseList() throws NoComicInCacheException;
 
     boolean isDatabaseEmpty();
 }
