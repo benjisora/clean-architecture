@@ -1,4 +1,4 @@
-package amiltone.bsaugues.td_niveau1.data.entity.mapper;
+package amiltone.bsaugues.td_niveau1.data.entity.mapper.db;
 
 import java.util.ArrayList;
 import java.util.List;

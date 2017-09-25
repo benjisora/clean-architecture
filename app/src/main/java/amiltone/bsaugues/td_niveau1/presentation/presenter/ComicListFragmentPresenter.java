@@ -37,6 +37,7 @@ public class ComicListFragmentPresenter {
 
 
     public void retrieveData() {
+
         Observable<List<ComicEntity>> comics = this.contentRepository.getComicsList();
         comics.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<ComicEntity>>() {
@@ -54,7 +55,6 @@ public class ComicListFragmentPresenter {
 
                     @Override
                     public void onNext(List<ComicEntity> comics) {
-
                         comicListView.displayComics(getComicsViewModel(comics));
                     }
                 });

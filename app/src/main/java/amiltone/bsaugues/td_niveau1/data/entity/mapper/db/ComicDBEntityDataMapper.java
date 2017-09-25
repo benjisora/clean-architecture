@@ -1,4 +1,4 @@
-package amiltone.bsaugues.td_niveau1.data.entity.mapper;
+package amiltone.bsaugues.td_niveau1.data.entity.mapper.db;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.List;
 import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.CreatorsEnveloppeEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.db.ComicDBEntity;
-import amiltone.bsaugues.td_niveau1.data.entity.db.CreatorDBEntity;
 
 /**
  * Created by amiltonedev_dt013 on 22/09/2017.

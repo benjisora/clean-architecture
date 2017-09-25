@@ -5,8 +5,8 @@ import android.util.Log;
 import java.util.List;
 
 import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
-import amiltone.bsaugues.td_niveau1.data.entity.mapper.ComicDBEntityDataMapper;
-import amiltone.bsaugues.td_niveau1.data.entity.mapper.ComicEntityDataMapper;
+import amiltone.bsaugues.td_niveau1.data.entity.mapper.db.ComicDBEntityDataMapper;
+import amiltone.bsaugues.td_niveau1.data.entity.mapper.remote.ComicEntityDataMapper;
 import amiltone.bsaugues.td_niveau1.data.entity.remote.ComicRemoteEntity;
 import amiltone.bsaugues.td_niveau1.data.manager.api.MarvelApiManager;
 import amiltone.bsaugues.td_niveau1.data.manager.cache.CacheManager;
@@ -104,7 +104,7 @@ public class ContentRepository {
                     }
                 });
             } else {
-                return null;
+                return Observable.empty();
             }
 
         } else {

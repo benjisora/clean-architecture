@@ -1,11 +1,6 @@
-package amiltone.bsaugues.td_niveau1.data.entity.mapper;
+package amiltone.bsaugues.td_niveau1.data.entity.mapper.remote;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.CreatorsEnveloppeEntity;
-import amiltone.bsaugues.td_niveau1.data.entity.remote.ComicRemoteEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.remote.CreatorsEnveloppeRemoteEntity;
 
 /**

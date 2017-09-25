@@ -17,7 +17,7 @@ import amiltone.bsaugues.td_niveau1.data.manager.database.DatabaseManagerImpl;
  * Created by amiltonedev_dt013 on 20/09/2017.
  */
 @Table(database = DatabaseManagerImpl.class)
-public class ComicDBEntity extends BaseModel implements Serializable {
+public class ComicDBEntity extends BaseModel {
 
     @PrimaryKey
     private int id;

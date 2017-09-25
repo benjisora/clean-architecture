@@ -10,6 +10,7 @@ public class CreatorEntity implements Serializable{
 
     private String name;
     private String role;
+    private String resourceURI;
 
     public String getName() {
         return name;
@@ -25,6 +26,14 @@ public class CreatorEntity implements Serializable{
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getResourceURI() {
+        return resourceURI;
+    }
+
+    public void setResourceURI(String resourceURI) {
+        this.resourceURI = resourceURI;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package amiltone.bsaugues.td_niveau1.data.entity.mapper;
+package amiltone.bsaugues.td_niveau1.data.entity.mapper.remote;
 
 import amiltone.bsaugues.td_niveau1.data.entity.ImageEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.remote.ImageRemoteEntity;
