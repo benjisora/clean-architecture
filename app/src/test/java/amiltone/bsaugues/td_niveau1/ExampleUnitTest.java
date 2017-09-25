@@ -2,7 +2,9 @@ package amiltone.bsaugues.td_niveau1;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
+
+import static org.assertj.core.api.Assertions.*;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -12,6 +14,10 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+
+        ComicEntity comicEntity = new ComicEntity();
+        comicEntity.setTitle("test");
+
+        assertThat(comicEntity.getTitle()).isEqualTo("test");
     }
 }
