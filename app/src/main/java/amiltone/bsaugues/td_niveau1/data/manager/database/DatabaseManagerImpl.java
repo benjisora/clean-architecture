@@ -44,9 +44,11 @@ public class DatabaseManagerImpl implements DatabaseManager {
         if (isDatabaseEmpty()) {
             throw new NoComicInDatabaseException();
         } else {
-            return SQLite.select()
+            List<ComicDBEntity> comics = SQLite.select()
                     .from(ComicDBEntity.class)
                     .queryList();
+
+            return comics;
         }
     }
 

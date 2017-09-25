@@ -36,4 +36,11 @@ public class ImageDBEntity extends BaseModel implements Serializable {
         this.extension = extension;
     }
 
+    @Override
+    public String toString() {
+        return "ImageDBEntity{" +
+                "path='" + path + '\'' +
+                ", extension='" + extension + '\'' +
+                '}';
+    }
 }

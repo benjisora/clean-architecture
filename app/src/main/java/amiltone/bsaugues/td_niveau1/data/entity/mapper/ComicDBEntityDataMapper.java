@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
+import amiltone.bsaugues.td_niveau1.data.entity.CreatorsEnveloppeEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.db.ComicDBEntity;
+import amiltone.bsaugues.td_niveau1.data.entity.db.CreatorDBEntity;
 
 /**
  * Created by amiltonedev_dt013 on 22/09/2017.
@@ -15,13 +17,13 @@ public class ComicDBEntityDataMapper {
     private SpecifiedUrlDBEntityDataMapper specifiedUrlDBEntityDataMapper;
     private SpecifiedDateDBEntityDataMapper specifiedDateDBEntityDataMapper;
     private ImageDBEntityDataMapper imageDBEntityDataMapper;
-    private CreatorsEnveloppeDBEntityDataMapper creatorsEnveloppeDBEntityDataMapper;
+    private CreatorDBEntityDataMapper creatorDBEntityDataMapper;
 
     public ComicDBEntityDataMapper() {
         this.specifiedUrlDBEntityDataMapper = new SpecifiedUrlDBEntityDataMapper();
         this.specifiedDateDBEntityDataMapper = new SpecifiedDateDBEntityDataMapper();
         this.imageDBEntityDataMapper = new ImageDBEntityDataMapper();
-        this.creatorsEnveloppeDBEntityDataMapper = new CreatorsEnveloppeDBEntityDataMapper();
+        this.creatorDBEntityDataMapper = new CreatorDBEntityDataMapper();
     }
 
     public List<ComicDBEntity> transformToDB(List<ComicEntity> comicEntities) {
@@ -38,10 +40,10 @@ public class ComicDBEntityDataMapper {
         entity.setId(comic.getId());
         entity.setTitle(comic.getTitle());
         entity.setDiamondCode(comic.getDiamondCode());
-        entity.setUrls(specifiedUrlDBEntityDataMapper.transformToDB(comic.getUrls()));
-        entity.setDates(specifiedDateDBEntityDataMapper.transformToDB(comic.getDates()));
+        entity.setUrls(specifiedUrlDBEntityDataMapper.transformToDB(comic.getUrls(), comic.getId()));
+        entity.setDates(specifiedDateDBEntityDataMapper.transformToDB(comic.getDates(), comic.getId()));
         entity.setImage(imageDBEntityDataMapper.transformToDB(comic.getImage()));
-        entity.setCreators(creatorsEnveloppeDBEntityDataMapper.transformToDB(comic.getCreators()));
+        entity.setCreators(creatorDBEntityDataMapper.transformToDB(comic.getCreators().getCreators(), comic.getId()));
 
         return entity;
     }
@@ -54,7 +56,7 @@ public class ComicDBEntityDataMapper {
         return entities;
     }
 
-    private ComicEntity transformToEntity(ComicDBEntity comic) {
+    public ComicEntity transformToEntity(ComicDBEntity comic) {
 
         ComicEntity entity = new ComicEntity();
         entity.setId(comic.getId());
@@ -63,7 +65,9 @@ public class ComicDBEntityDataMapper {
         entity.setUrls(specifiedUrlDBEntityDataMapper.transformToEntity(comic.getUrls()));
         entity.setDates(specifiedDateDBEntityDataMapper.transformToEntity(comic.getDates()));
         entity.setImage(imageDBEntityDataMapper.transformToEntity(comic.getImage()));
-        entity.setCreators(creatorsEnveloppeDBEntityDataMapper.transformToEntity(comic.getCreators()));
+        CreatorsEnveloppeEntity creatorsEnveloppeEntity = new CreatorsEnveloppeEntity();
+        creatorsEnveloppeEntity.setCreators(creatorDBEntityDataMapper.transformToEntity(comic.getCreators()));
+        entity.setCreators(creatorsEnveloppeEntity);
 
         return entity;
     }

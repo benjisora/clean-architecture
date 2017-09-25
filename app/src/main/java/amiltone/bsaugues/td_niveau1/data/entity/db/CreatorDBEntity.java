@@ -16,24 +16,24 @@ import amiltone.bsaugues.td_niveau1.data.manager.database.DatabaseManagerImpl;
 @Table(database = DatabaseManagerImpl.class)
 public class CreatorDBEntity extends BaseModel implements Serializable {
 
-    @Column
-    private int enveloppeId;
-
-    @Column
-    private String name;
-
-    @Column
-    private String role;
+    @PrimaryKey
+    private int comicId;
 
     @PrimaryKey
+    private String name;
+
+    @PrimaryKey
+    private String role;
+
+    @Column
     private String resourceURI;
 
-    public int getEnveloppeId() {
-        return enveloppeId;
+    public int getComicId() {
+        return comicId;
     }
 
-    public void setEnveloppeId(int enveloppeId) {
-        this.enveloppeId = enveloppeId;
+    public void setComicId(int comicId) {
+        this.comicId = comicId;
     }
 
     public String getName() {
@@ -60,13 +60,14 @@ public class CreatorDBEntity extends BaseModel implements Serializable {
         this.resourceURI = resourceURI;
     }
 
+
     @Override
     public String toString() {
-        return "CreatorRemoteEntity{" +
-                "name='" + name + '\'' +
+        return "CreatorDBEntity{" +
+                "enveloppeId=" + comicId +
+                ", name='" + name + '\'' +
                 ", role='" + role + '\'' +
                 ", resourceURI='" + resourceURI + '\'' +
                 '}';
     }
-
 }

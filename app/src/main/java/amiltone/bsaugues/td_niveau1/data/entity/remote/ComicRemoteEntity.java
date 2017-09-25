@@ -16,7 +16,7 @@ public class ComicRemoteEntity implements Serializable {
 
     private String diamondCode;
 
-    private List<SpecifiedUrlEntity> urls;
+    private List<SpecifiedUrlRemoteEntity> urls;
 
     private List<SpecifiedDateRemoteEntity> dates;
 
@@ -51,11 +51,11 @@ public class ComicRemoteEntity implements Serializable {
         this.diamondCode = diamondCode;
     }
 
-    public List<SpecifiedUrlEntity> getUrls() {
+    public List<SpecifiedUrlRemoteEntity> getUrls() {
         return urls;
     }
 
-    public void setUrls(List<SpecifiedUrlEntity> urls) {
+    public void setUrls(List<SpecifiedUrlRemoteEntity> urls) {
         this.urls = urls;
     }
 

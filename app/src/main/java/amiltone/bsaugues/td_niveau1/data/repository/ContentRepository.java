@@ -44,18 +44,18 @@ public class ContentRepository {
 
             if (databaseManager.isDatabaseEmpty()) {
 
-
                 return marvelApiManager.getComicsListFromApi().map(new Func1<List<ComicRemoteEntity>, List<ComicEntity>>() {
                     @Override
                     public List<ComicEntity> call(List<ComicRemoteEntity> comicRemoteEntities) {
+                        Log.d("ContentRepository", "Gotten from API");
                         return comicEntityDataMapper.transformToEntity(comicRemoteEntities);
                     }
                 }).doOnNext(new Action1<List<ComicEntity>>() {
                     @Override
                     public void call(List<ComicEntity> comicEntities) {
-                        Log.d("ContentRepository", "Saved in cache");
-                        //cacheManager.saveComicList(comicRemoteEntities);
+                        Log.d("ContentRepository", "Saved in cache and DB from API");
                         cacheManager.saveComicList(comicEntities);
+                        databaseManager.saveComicList(comicDBEntityDataMapper.transformToDB(comicEntities));
                     }
                 });
 
@@ -63,8 +63,14 @@ public class ContentRepository {
                 return Observable.defer(new Func0<Observable<List<ComicEntity>>>() {
                     @Override
                     public Observable<List<ComicEntity>> call() {
-                        Log.d("ContentRepository", "Gotten from cache");
+                        Log.d("ContentRepository", "Gotten from DB");
                         return Observable.just(comicDBEntityDataMapper.transformToEntity(databaseManager.getDatabaseList()));
+                    }
+                }).doOnNext(new Action1<List<ComicEntity>>() {
+                    @Override
+                    public void call(List<ComicEntity> comicEntities) {
+                        Log.d("ContentRepository", "Saved in cache from DB");
+                        cacheManager.saveComicList(comicEntities);
                     }
                 });
             }
@@ -77,17 +83,40 @@ public class ContentRepository {
                 }
             });
         }
-
     }
 
     public Observable<ComicEntity> getComicById(final int id) {
 
-        return Observable.defer(new Func0<Observable<ComicEntity>>() {
-            @Override
-            public Observable<ComicEntity> call() {
-                return Observable.just(cacheManager.getComicById(id));
+        if (cacheManager.isCacheEmpty()) {
+
+            if (!databaseManager.isDatabaseEmpty()) {
+                Log.d("ContentRepository", "Gotten from DB");
+                return Observable.defer(new Func0<Observable<ComicEntity>>() {
+                    @Override
+                    public Observable<ComicEntity> call() {
+                        return Observable.just(comicDBEntityDataMapper.transformToEntity(databaseManager.getComicById(id)));
+                    }
+                }).doOnNext(new Action1<ComicEntity>() {
+                    @Override
+                    public void call(ComicEntity comicEntity) {
+                        Log.d("ContentRepository", "Saved single comic in cache from DB");
+                        cacheManager.saveComic(comicEntity);
+                    }
+                });
+            } else {
+                return null;
             }
-        });
+
+        } else {
+            Log.d("ContentRepository", "Gotten from Cache");
+            return Observable.defer(new Func0<Observable<ComicEntity>>() {
+                @Override
+                public Observable<ComicEntity> call() {
+                    return Observable.just(cacheManager.getComicById(id));
+                }
+            });
+        }
+
     }
 
 

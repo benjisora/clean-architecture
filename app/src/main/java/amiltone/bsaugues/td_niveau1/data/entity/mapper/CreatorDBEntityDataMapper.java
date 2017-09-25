@@ -16,21 +16,21 @@ public class CreatorDBEntityDataMapper {
 
     }
 
-    public List<CreatorDBEntity> transformToDB(List<CreatorEntity> creatorEntities) {
+    public List<CreatorDBEntity> transformToDB(List<CreatorEntity> creatorEntities, int comicId) {
 
         List<CreatorDBEntity> entities = new ArrayList<>();
         for (CreatorEntity entity : creatorEntities) {
-            entities.add(transformToDB(entity));
+            entities.add(transformToDB(entity, comicId));
         }
         return entities;
-
     }
 
-    private CreatorDBEntity transformToDB(CreatorEntity creatorRemoteEntity) {
+    private CreatorDBEntity transformToDB(CreatorEntity creatorEntity, int comicId) {
 
         CreatorDBEntity entity = new CreatorDBEntity();
-        entity.setName(creatorRemoteEntity.getName());
-        entity.setRole(creatorRemoteEntity.getRole());
+        entity.setName(creatorEntity.getName());
+        entity.setRole(creatorEntity.getRole());
+        entity.setComicId(comicId);
 
         return entity;
     }

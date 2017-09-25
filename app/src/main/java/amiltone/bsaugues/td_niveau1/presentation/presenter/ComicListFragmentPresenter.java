@@ -24,11 +24,11 @@ public class ComicListFragmentPresenter {
     private ComicListView comicListView;
     private NavigatorListener navigatorListener;
 
-    private ContentRepository apiRepository;
+    private ContentRepository contentRepository;
 
     public ComicListFragmentPresenter(NavigatorListener navigatorListener) {
         this.navigatorListener = navigatorListener;
-        this.apiRepository = TdApplication.getInstance().getContentRepository();
+        this.contentRepository = TdApplication.getInstance().getContentRepository();
     }
 
     public void setComicListView(ComicListView comicListView) {
@@ -37,7 +37,7 @@ public class ComicListFragmentPresenter {
 
 
     public void retrieveData() {
-        Observable<List<ComicEntity>> comics = this.apiRepository.getComicsList();
+        Observable<List<ComicEntity>> comics = this.contentRepository.getComicsList();
         comics.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<ComicEntity>>() {
 

@@ -13,9 +13,9 @@ public interface CacheManager {
 
     ComicEntity getComicById(int id);
 
-    //TODO : fonction saveComicList (enregistre la liste de l'API)
-
     void saveComicList(List<ComicEntity> comics);
+
+    void saveComic(ComicEntity comicEntity);
 
     List<ComicEntity> getCachedList() throws NoComicInCacheException;
 

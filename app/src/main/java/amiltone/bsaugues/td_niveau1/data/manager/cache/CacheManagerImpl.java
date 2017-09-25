@@ -37,6 +37,11 @@ public class CacheManagerImpl implements CacheManager {
     }
 
     @Override
+    public void saveComic(ComicEntity comicEntity) {
+        comicList.add(comicEntity);
+    }
+
+    @Override
     public List<ComicEntity> getCachedList() {
         if(isCacheEmpty()){
             throw new NoComicInCacheException();

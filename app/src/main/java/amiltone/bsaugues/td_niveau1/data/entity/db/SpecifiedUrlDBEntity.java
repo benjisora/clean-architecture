@@ -29,7 +29,7 @@ public class SpecifiedUrlDBEntity extends BaseModel implements Serializable {
     }
 
     public void setComicId(int comicId) {
-        comicId = comicId;
+        this.comicId = comicId;
     }
 
     public String getType() {
@@ -48,4 +48,12 @@ public class SpecifiedUrlDBEntity extends BaseModel implements Serializable {
         this.url = url;
     }
 
+    @Override
+    public String toString() {
+        return "SpecifiedUrlDBEntity{" +
+                "comicId=" + comicId +
+                ", type='" + type + '\'' +
+                ", url='" + url + '\'' +
+                '}';
+    }
 }

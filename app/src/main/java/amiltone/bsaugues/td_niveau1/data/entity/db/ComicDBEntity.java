@@ -35,8 +35,7 @@ public class ComicDBEntity extends BaseModel implements Serializable {
     @ForeignKey(stubbedRelationship = true)
     private ImageDBEntity image;
 
-    @ForeignKey(stubbedRelationship = true)
-    private CreatorsEnveloppeDBEntity creators;
+    private List<CreatorDBEntity> creators;
 
     //region getters/setters
 
@@ -88,12 +87,12 @@ public class ComicDBEntity extends BaseModel implements Serializable {
         this.image = image;
     }
 
-    public void setCreators(CreatorsEnveloppeDBEntity creators) {
-        this.creators = creators;
+    public List<CreatorDBEntity> getCreators() {
+        return creators;
     }
 
-    public CreatorsEnveloppeDBEntity getCreators() {
-        return creators;
+    public void setCreators(List<CreatorDBEntity> creators) {
+        this.creators = creators;
     }
 
     //endregion
@@ -118,5 +117,16 @@ public class ComicDBEntity extends BaseModel implements Serializable {
                     .queryList();
         }
         return dates;
+    }
+
+    @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "creators")
+    public List<SpecifiedUrlDBEntity> getMyCreators() {
+        if (creators == null || creators.isEmpty()) {
+            creators = SQLite.select()
+                    .from(CreatorDBEntity.class)
+                    .where(CreatorDBEntity_Table.comicId.eq(id))
+                    .queryList();
+        }
+        return urls;
     }
 }

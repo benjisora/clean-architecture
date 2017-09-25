@@ -16,20 +16,21 @@ public class SpecifiedDateDBEntityDataMapper {
 
     }
 
-    public List<SpecifiedDateDBEntity> transformToDB(List<SpecifiedDateEntity> creatorEntities) {
+    public List<SpecifiedDateDBEntity> transformToDB(List<SpecifiedDateEntity> creatorEntities, int comicId) {
 
         List<SpecifiedDateDBEntity> entities = new ArrayList<>();
         for (SpecifiedDateEntity entity : creatorEntities) {
-            entities.add(transformToDB(entity));
+            entities.add(transformToDB(entity, comicId));
         }
         return entities;
 
     }
 
-    private SpecifiedDateDBEntity transformToDB(SpecifiedDateEntity specifiedDateEntity) {
+    private SpecifiedDateDBEntity transformToDB(SpecifiedDateEntity specifiedDateEntity, int comicId) {
         SpecifiedDateDBEntity entity = new SpecifiedDateDBEntity();
         entity.setType(specifiedDateEntity.getType());
         entity.setDate(specifiedDateEntity.getDate());
+        entity.setComicId(comicId);
         return entity;
     }
 
