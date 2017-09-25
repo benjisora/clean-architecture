@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.List;
 
 import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
+import amiltone.bsaugues.td_niveau1.data.entity.db.ComicDBEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.mapper.db.ComicDBEntityDataMapper;
 import amiltone.bsaugues.td_niveau1.data.entity.mapper.remote.ComicEntityDataMapper;
 import amiltone.bsaugues.td_niveau1.data.entity.remote.ComicRemoteEntity;
@@ -40,6 +41,51 @@ public class ContentRepository {
 
     public Observable<List<ComicEntity>> getComicsList() {
 
+        return Observable.defer(new Func0<Observable<List<ComicEntity>>>() {
+            @Override
+            public Observable<List<ComicEntity>> call() {
+                Log.d("ContentRepository", "Try to get list from cache");
+                return Observable.just(cacheManager.getCachedList());
+            }
+        }).onErrorResumeNext(new Func1<Throwable, Observable<? extends List<ComicEntity>>>() {
+            @Override
+            public Observable<? extends List<ComicEntity>> call(Throwable throwable) {
+                return Observable.just(databaseManager.getDatabaseList()).map(new Func1<List<ComicDBEntity>, List<ComicEntity>>() {
+                    @Override
+                    public List<ComicEntity> call(List<ComicDBEntity> comicDBEntities) {
+                        Log.d("ContentRepository", "Gotten list from DB");
+                        return comicDBEntityDataMapper.transformToEntity(comicDBEntities);
+                    }
+                }).doOnNext(new Action1<List<ComicEntity>>() {
+                    @Override
+                    public void call(List<ComicEntity> comicEntities) {
+                        Log.d("ContentRepository", "Saved list in cache from DB");
+                        cacheManager.saveComicList(comicEntities);
+                    }
+                });
+            }
+        }).onErrorResumeNext(new Func1<Throwable, Observable<? extends List<ComicEntity>>>() {
+            @Override
+            public Observable<? extends List<ComicEntity>> call(Throwable throwable) {
+                return marvelApiManager.getComicsListFromApi().map(new Func1<List<ComicRemoteEntity>, List<ComicEntity>>() {
+                    @Override
+                    public List<ComicEntity> call(List<ComicRemoteEntity> comicRemoteEntities) {
+                        Log.d("ContentRepository", "Gotten list from API");
+                        return comicEntityDataMapper.transformToEntity(comicRemoteEntities);
+                    }
+                }).doOnNext(new Action1<List<ComicEntity>>() {
+                    @Override
+                    public void call(List<ComicEntity> comicEntities) {
+                        Log.d("ContentRepository", "Saved list in cache and DB from API");
+                        databaseManager.saveComicList(comicDBEntityDataMapper.transformToDB(comicEntities));
+                        cacheManager.saveComicList(comicEntities);
+                    }
+                });
+            }
+        });
+
+
+        /*
         if (cacheManager.isCacheEmpty()) {
 
             if (databaseManager.isDatabaseEmpty()) {
@@ -83,6 +129,8 @@ public class ContentRepository {
                 }
             });
         }
+
+        */
     }
 
     public Observable<ComicEntity> getComicById(final int id) {
@@ -90,7 +138,7 @@ public class ContentRepository {
         if (cacheManager.isCacheEmpty()) {
 
             if (!databaseManager.isDatabaseEmpty()) {
-                Log.d("ContentRepository", "Gotten from DB");
+                Log.d("ContentRepository", "Gotten single comic from DB");
                 return Observable.defer(new Func0<Observable<ComicEntity>>() {
                     @Override
                     public Observable<ComicEntity> call() {
@@ -108,7 +156,7 @@ public class ContentRepository {
             }
 
         } else {
-            Log.d("ContentRepository", "Gotten from Cache");
+            Log.d("ContentRepository", "Gotten single comic from Cache");
             return Observable.defer(new Func0<Observable<ComicEntity>>() {
                 @Override
                 public Observable<ComicEntity> call() {

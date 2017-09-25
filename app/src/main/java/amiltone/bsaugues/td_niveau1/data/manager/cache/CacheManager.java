@@ -17,7 +17,7 @@ public interface CacheManager {
 
     void saveComic(ComicEntity comicEntity);
 
-    List<ComicEntity> getCachedList() throws NoComicInCacheException;
+    List<ComicEntity> getCachedList();
 
     boolean isCacheEmpty();
 }
