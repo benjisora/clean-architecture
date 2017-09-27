@@ -6,6 +6,7 @@ import java.util.List;
 import amiltone.bsaugues.td_niveau1.data.exception.ComicNotFoundException;
 import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
 import amiltone.bsaugues.td_niveau1.data.exception.NoComicInCacheException;
+import amiltone.bsaugues.td_niveau1.data.exception.NullParameterException;
 
 /**
  * Created by amiltonedev_dt013 on 20/09/2017.
@@ -32,13 +33,22 @@ public class CacheManagerImpl implements CacheManager {
 
     @Override
     public void saveComicList(List<ComicEntity> comics) {
-        comicList.clear();
-        comicList.addAll(comics);
+        if(comics != null){
+            comicList.clear();
+            comicList.addAll(comics);
+        } else {
+            throw new NullParameterException();
+        }
     }
 
     @Override
     public void saveComic(ComicEntity comicEntity) {
-        comicList.add(comicEntity);
+        if(comicEntity != null){
+            comicList.add(comicEntity);
+        } else {
+            throw new NullParameterException();
+        }
+
     }
 
     @Override
@@ -48,7 +58,6 @@ public class CacheManagerImpl implements CacheManager {
         } else {
             return comicList;
         }
-
     }
 
     @Override

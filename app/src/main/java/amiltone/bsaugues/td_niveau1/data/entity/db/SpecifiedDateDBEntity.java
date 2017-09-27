@@ -58,4 +58,14 @@ public class SpecifiedDateDBEntity extends BaseModel implements Serializable {
     public void setType(String type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "SpecifiedDateDBEntity{" +
+                "id=" + id +
+                ", comicId=" + comicId +
+                ", type='" + type + '\'' +
+                ", date='" + date + '\'' +
+                '}';
+    }
 }

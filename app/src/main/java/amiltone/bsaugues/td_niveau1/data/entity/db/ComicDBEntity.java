@@ -129,4 +129,23 @@ public class ComicDBEntity extends BaseModel {
         }
         return urls;
     }
+
+    @Override
+    public String toString() {
+        return "ComicDBEntity{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", diamondCode='" + diamondCode + '\'' +
+                ", urls=" + urls +
+                ", dates=" + dates +
+                ", image=" + image +
+                ", creators=" + creators +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof ComicDBEntity && ((ComicDBEntity) o).getId() == this.getId();
+    }
+
 }

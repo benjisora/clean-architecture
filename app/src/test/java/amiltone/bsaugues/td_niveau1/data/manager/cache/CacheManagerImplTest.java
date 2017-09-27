@@ -14,7 +14,9 @@ import amiltone.bsaugues.td_niveau1.data.entity.SpecifiedDateEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.SpecifiedUrlEntity;
 import amiltone.bsaugues.td_niveau1.data.exception.ComicNotFoundException;
 import amiltone.bsaugues.td_niveau1.data.exception.NoComicInCacheException;
+import amiltone.bsaugues.td_niveau1.data.exception.NullParameterException;
 
+import static junit.framework.Assert.fail;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -79,7 +81,6 @@ public class CacheManagerImplTest {
         creatorsEnveloppeEntity.setCreators(creatorEntities);
         comicEntity.setCreators(creatorsEnveloppeEntity);
 
-
         return comicEntity;
     }
 
@@ -95,22 +96,42 @@ public class CacheManagerImplTest {
         index = 1;
         try {
             cacheManager.getComicById(index);
+            fail("ComicNotFoundException expected because searched comic not in cache");
         } catch (Exception e) {
             assertThat(e).isInstanceOf(ComicNotFoundException.class);
         }
     }
 
+    @Test
+    public void saveComicListNullParameter() {
+        try {
+            cacheManager.saveComicList(null);
+            fail("NullParameterException expected because null list as parameter");
+        } catch (Exception e) {
+            assertThat(e).isInstanceOf(NullParameterException.class);
+        }
+    }
 
     @Test
-    public void saveComicList() throws Exception {
+    public void saveComicListSuccess() {
         cacheManager.saveComicList(comicEntities);
         assertThat(cacheManager.getCachedList()).isNotNull();
     }
 
     @Test
-    public void saveComic() throws Exception {
+    public void saveComicNullParameter() {
+        try {
+            cacheManager.saveComic(null);
+            fail("NullParameterException expected because null comic as parameter");
+        } catch (Exception e) {
+            assertThat(e).isInstanceOf(NullParameterException.class);
+        }
+    }
+
+    @Test
+    public void saveComicSuccess() {
         cacheManager.saveComic(comicEntity);
-        assertThat(cacheManager.getCachedList()).isNotNull();
+        assertThat(cacheManager.getCachedList()).contains(comicEntity);
     }
 
     @Test
@@ -121,20 +142,27 @@ public class CacheManagerImplTest {
 
     @Test
     public void getCachedListNoComicInCache() throws Exception {
+
+        cacheManager = new CacheManagerImpl();
         try {
             cacheManager.getCachedList();
+            fail("NoComicInCacheException expected because nothing is saved before");
         } catch (Exception e) {
             assertThat(e).isInstanceOf(NoComicInCacheException.class);
         }
     }
 
-
     @Test
-    public void isCacheEmpty() throws Exception {
-        assertThat(cacheManager.isCacheEmpty()).isEqualTo(true);
-
+    public void isCacheEmptyFail() {
         cacheManager.saveComicList(comicEntities);
         assertThat(cacheManager.isCacheEmpty()).isEqualTo(false);
     }
+
+    @Test
+    public void isCacheEmptySuccess() {
+        cacheManager = new CacheManagerImpl();
+        assertThat(cacheManager.isCacheEmpty()).isEqualTo(true);
+    }
+
 
 }

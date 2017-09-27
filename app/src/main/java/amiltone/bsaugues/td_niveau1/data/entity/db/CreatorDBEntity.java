@@ -64,7 +64,7 @@ public class CreatorDBEntity extends BaseModel implements Serializable {
     @Override
     public String toString() {
         return "CreatorDBEntity{" +
-                "enveloppeId=" + comicId +
+                "comicId=" + comicId +
                 ", name='" + name + '\'' +
                 ", role='" + role + '\'' +
                 ", resourceURI='" + resourceURI + '\'' +

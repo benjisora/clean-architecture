@@ -31,6 +31,7 @@ public class CreatorDBEntityDataMapper {
         entity.setName(creatorEntity.getName());
         entity.setRole(creatorEntity.getRole());
         entity.setComicId(comicId);
+        entity.setResourceURI(creatorEntity.getResourceURI());
 
         return entity;
     }
@@ -50,6 +51,7 @@ public class CreatorDBEntityDataMapper {
         CreatorEntity entity = new CreatorEntity();
         entity.setName(creatorRemoteEntity.getName());
         entity.setRole(creatorRemoteEntity.getRole());
+        entity.setResourceURI(creatorRemoteEntity.getResourceURI());
 
         return entity;
     }

@@ -84,53 +84,6 @@ public class ContentRepository {
             }
         });
 
-
-        /*
-        if (cacheManager.isCacheEmpty()) {
-
-            if (databaseManager.isDatabaseEmpty()) {
-
-                return marvelApiManager.getComicsListFromApi().map(new Func1<List<ComicRemoteEntity>, List<ComicEntity>>() {
-                    @Override
-                    public List<ComicEntity> call(List<ComicRemoteEntity> comicRemoteEntities) {
-                        Log.d("ContentRepository", "Gotten from API");
-                        return comicEntityDataMapper.transformToEntity(comicRemoteEntities);
-                    }
-                }).doOnNext(new Action1<List<ComicEntity>>() {
-                    @Override
-                    public void call(List<ComicEntity> comicEntities) {
-                        Log.d("ContentRepository", "Saved in cache and DB from API");
-                        cacheManager.saveComicList(comicEntities);
-                        databaseManager.saveComicList(comicDBEntityDataMapper.transformToDB(comicEntities));
-                    }
-                });
-
-            } else {
-                return Observable.defer(new Func0<Observable<List<ComicEntity>>>() {
-                    @Override
-                    public Observable<List<ComicEntity>> call() {
-                        Log.d("ContentRepository", "Gotten from DB");
-                        return Observable.just(comicDBEntityDataMapper.transformToEntity(databaseManager.getDatabaseList()));
-                    }
-                }).doOnNext(new Action1<List<ComicEntity>>() {
-                    @Override
-                    public void call(List<ComicEntity> comicEntities) {
-                        Log.d("ContentRepository", "Saved in cache from DB");
-                        cacheManager.saveComicList(comicEntities);
-                    }
-                });
-            }
-        } else {
-            return Observable.defer(new Func0<Observable<List<ComicEntity>>>() {
-                @Override
-                public Observable<List<ComicEntity>> call() {
-                    Log.d("ContentRepository", "Gotten from cache");
-                    return Observable.just(cacheManager.getCachedList());
-                }
-            });
-        }
-
-        */
     }
 
     public Observable<ComicEntity> getComicById(final int id) {

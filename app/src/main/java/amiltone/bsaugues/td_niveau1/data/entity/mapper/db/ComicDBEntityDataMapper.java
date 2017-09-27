@@ -6,6 +6,7 @@ import java.util.List;
 import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.CreatorsEnveloppeEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.db.ComicDBEntity;
+import amiltone.bsaugues.td_niveau1.data.exception.NullParameterException;
 
 /**
  * Created by amiltonedev_dt013 on 22/09/2017.
@@ -26,6 +27,11 @@ public class ComicDBEntityDataMapper {
     }
 
     public List<ComicDBEntity> transformToDB(List<ComicEntity> comicEntities) {
+
+        if (comicEntities == null) {
+            throw new NullParameterException();
+        }
+
         List<ComicDBEntity> entities = new ArrayList<>();
         for (ComicEntity entity : comicEntities) {
             entities.add(transformToDB(entity));
@@ -47,7 +53,12 @@ public class ComicDBEntityDataMapper {
         return entity;
     }
 
-    public List<ComicEntity> transformToEntity(List<ComicDBEntity> comicDBEntities){
+    public List<ComicEntity> transformToEntity(List<ComicDBEntity> comicDBEntities) {
+
+        if (comicDBEntities == null) {
+            throw new NullParameterException();
+        }
+
         List<ComicEntity> entities = new ArrayList<>();
         for (ComicDBEntity entity : comicDBEntities) {
             entities.add(transformToEntity(entity));
@@ -56,6 +67,10 @@ public class ComicDBEntityDataMapper {
     }
 
     public ComicEntity transformToEntity(ComicDBEntity comic) {
+
+        if (comic == null) {
+            throw new NullParameterException();
+        }
 
         ComicEntity entity = new ComicEntity();
         entity.setId(comic.getId());
