@@ -20,6 +20,11 @@ public class SpecifiedUrlEntityDataMapper {
     public List<SpecifiedUrlEntity> transformToEntity(List<SpecifiedUrlRemoteEntity> specifiedUrlRemoteEntities) {
 
         List<SpecifiedUrlEntity> entities = new ArrayList<>();
+
+        if(specifiedUrlRemoteEntities == null){
+            return entities;
+        }
+
         for (SpecifiedUrlRemoteEntity remoteEntity : specifiedUrlRemoteEntities) {
             entities.add(transformToEntity(remoteEntity));
         }
@@ -29,6 +34,11 @@ public class SpecifiedUrlEntityDataMapper {
 
     private SpecifiedUrlEntity transformToEntity(SpecifiedUrlRemoteEntity specifiedUrlRemoteEntity) {
         SpecifiedUrlEntity entity = new SpecifiedUrlEntity();
+
+        if(specifiedUrlRemoteEntity == null){
+            return entity;
+        }
+
         entity.setType(specifiedUrlRemoteEntity.getType());
         entity.setUrl(specifiedUrlRemoteEntity.getUrl());
         return entity;

@@ -6,7 +6,6 @@ import java.util.List;
 import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.CreatorsEnveloppeEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.db.ComicDBEntity;
-import amiltone.bsaugues.td_niveau1.data.exception.NullParameterException;
 
 /**
  * Created by amiltonedev_dt013 on 22/09/2017.
@@ -27,14 +26,14 @@ public class ComicDBEntityDataMapper {
     }
 
     public List<ComicDBEntity> transformToDB(List<ComicEntity> comicEntities) {
+        List<ComicDBEntity> entities = new ArrayList<>();
 
         if (comicEntities == null) {
-            throw new NullParameterException();
+            return entities;
         }
 
-        List<ComicDBEntity> entities = new ArrayList<>();
-        for (ComicEntity entity : comicEntities) {
-            entities.add(transformToDB(entity));
+        for (ComicEntity comic : comicEntities) {
+            entities.add(transformToDB(comic));
         }
         return entities;
     }
@@ -42,6 +41,11 @@ public class ComicDBEntityDataMapper {
     private ComicDBEntity transformToDB(ComicEntity comic) {
 
         ComicDBEntity entity = new ComicDBEntity();
+
+        if (comic == null) {
+            return entity;
+        }
+
         entity.setId(comic.getId());
         entity.setTitle(comic.getTitle());
         entity.setDiamondCode(comic.getDiamondCode());
@@ -55,24 +59,26 @@ public class ComicDBEntityDataMapper {
 
     public List<ComicEntity> transformToEntity(List<ComicDBEntity> comicDBEntities) {
 
+        List<ComicEntity> entities = new ArrayList<>();
+
         if (comicDBEntities == null) {
-            throw new NullParameterException();
+            return entities;
         }
 
-        List<ComicEntity> entities = new ArrayList<>();
-        for (ComicDBEntity entity : comicDBEntities) {
-            entities.add(transformToEntity(entity));
+        for (int i = 0; i < comicDBEntities.size(); i++) {
+            entities.add(transformToEntity(comicDBEntities.get(i)));
         }
         return entities;
     }
 
     public ComicEntity transformToEntity(ComicDBEntity comic) {
 
+        ComicEntity entity = new ComicEntity();
+
         if (comic == null) {
-            throw new NullParameterException();
+            return entity;
         }
 
-        ComicEntity entity = new ComicEntity();
         entity.setId(comic.getId());
         entity.setTitle(comic.getTitle());
         entity.setDiamondCode(comic.getDiamondCode());

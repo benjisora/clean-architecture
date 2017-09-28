@@ -1,6 +1,8 @@
 package amiltone.bsaugues.td_niveau1.presentation.presenter;
 
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,8 @@ import rx.schedulers.Schedulers;
  */
 
 public class ComicListFragmentPresenter {
+
+    public static final String TAG = "ComicListPresenter";
 
     private ComicListView comicListView;
     private NavigatorListener navigatorListener;
@@ -50,12 +54,18 @@ public class ComicListFragmentPresenter {
                     @Override
                     public void onError(Throwable e) {
 
+                        //gérer pas de data du tout
                         e.printStackTrace();
                     }
 
                     @Override
                     public void onNext(List<ComicEntity> comics) {
-                        comicListView.displayComics(getComicsViewModel(comics));
+                        if(comics.isEmpty()){
+                            Log.d(TAG, "onNext: list empty");
+                        } else {
+                            comicListView.displayComics(getComicsViewModel(comics));
+                        }
+
                     }
                 });
     }

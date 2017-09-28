@@ -15,11 +15,16 @@ public class CreatorsEnveloppeEntityDataMapper {
         creatorEntityDataMapper = new CreatorEntityDataMapper();
     }
 
-    public CreatorsEnveloppeEntity transformToEntity (CreatorsEnveloppeRemoteEntity creatorsEnveloppeRemoteEntities){
+    public CreatorsEnveloppeEntity transformToEntity (CreatorsEnveloppeRemoteEntity creatorsEnveloppeRemoteEntity){
 
-        CreatorsEnveloppeEntity transformedComics = new CreatorsEnveloppeEntity();
-        transformedComics.setCreators(creatorEntityDataMapper.transformToEntity(creatorsEnveloppeRemoteEntities.getCreators()));
-        return transformedComics;
+        CreatorsEnveloppeEntity entity = new CreatorsEnveloppeEntity();
+
+        if(creatorsEnveloppeRemoteEntity == null){
+            return entity;
+        }
+
+        entity.setCreators(creatorEntityDataMapper.transformToEntity(creatorsEnveloppeRemoteEntity.getCreators()));
+        return entity;
     }
 
 }

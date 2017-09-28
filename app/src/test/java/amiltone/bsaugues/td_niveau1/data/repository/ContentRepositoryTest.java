@@ -20,8 +20,12 @@ import amiltone.bsaugues.td_niveau1.data.manager.cache.CacheManagerImpl;
 import amiltone.bsaugues.td_niveau1.data.manager.database.DatabaseManager;
 import amiltone.bsaugues.td_niveau1.data.manager.database.DatabaseManagerImpl;
 import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -60,26 +64,66 @@ public class ContentRepositoryTest {
     @Test
     public void getComicsListFromApiSuccess() {
 
+        List<ComicRemoteEntity> list = new ArrayList<>();
+        final ComicRemoteEntity comicRemoteEntity = new ComicRemoteEntity();
+        int id = 1;
+        comicRemoteEntity.setId(id);
+        list.add(comicRemoteEntity);
+
         when(cacheManager.getCachedList()).thenThrow(NoComicInCacheException.class);
         when(databaseManager.getDatabaseList()).thenThrow(NoComicInDatabaseException.class);
-
-        List<ComicRemoteEntity> list = new ArrayList<>();
         when(marvelApiManager.getComicsListFromApi()).thenReturn(Observable.just(list));
 
-        contentRepository.getComicsList();
+        contentRepository.getComicsList().subscribe(new Subscriber<List<ComicEntity>>() {
+            @Override
+            public void onCompleted() {
+                verify(marvelApiManager, times(1)).getComicsListFromApi();
+            }
 
-        verify(marvelApiManager, atLeastOnce()).getComicsListFromApi();
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onNext(List<ComicEntity> comicEntities) {
+                assertThat(comicEntities).isNotEmpty().isEqualTo(comicEntities);
+            }
+        });
+
+
     }
 
     @Test
-    public void getComicsListFromDatabaseSuccess() throws Exception {
+    public void getComicsListFromDatabaseSuccess() {
+
+        List<ComicDBEntity> comicDBEntities = new ArrayList<>();
+        ComicDBEntity comicDBEntity = new ComicDBEntity();
+        int id = 8;
+        comicDBEntity.setId(id);
+        comicDBEntities.add(comicDBEntity);
+
         when(cacheManager.getCachedList()).thenThrow(NoComicInCacheException.class);
+        when(databaseManager.getDatabaseList()).thenReturn(comicDBEntities);
 
-        when(databaseManager.getDatabaseList()).thenReturn(new ArrayList<ComicDBEntity>());
+        contentRepository.getComicsList().subscribe(new Subscriber<List<ComicEntity>>() {
+            @Override
+            public void onCompleted() {
+                verify(databaseManager, times(1)).getDatabaseList();
+                verify(marvelApiManager, never()).getComicsListFromApi();
+            }
 
-        assertThat(contentRepository.getComicsList()).isNotNull();
-        verify(databaseManager, times(1)).getDatabaseList();
-        verify(marvelApiManager, never()).getComicsListFromApi();
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onNext(List<ComicEntity> comicEntities) {
+
+            }
+        });
+
     }
 
     @Test
@@ -87,14 +131,24 @@ public class ContentRepositoryTest {
 
         when(cacheManager.getCachedList()).thenReturn(new ArrayList<ComicEntity>());
 
-        assertThat(contentRepository.getComicsList()).isNotNull();
-        verify(databaseManager, never()).getDatabaseList();
-        verify(marvelApiManager, never()).getComicsListFromApi();
+        contentRepository.getComicsList().subscribe(new Subscriber<List<ComicEntity>>() {
+            @Override
+            public void onCompleted() {
+                verify(databaseManager, never()).getDatabaseList();
+                verify(marvelApiManager, never()).getComicsListFromApi();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onNext(List<ComicEntity> comicEntities) {
+
+            }
+        });
     }
 
-    @Test
-    public void getComicById() throws Exception {
-
-    }
 
 }

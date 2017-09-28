@@ -25,16 +25,26 @@ public class ComicEntityDataMapper {
     }
 
     public List<ComicEntity> transformToEntity(List<ComicRemoteEntity> comicRemoteEntities) {
-        List<ComicEntity> transformedComics = new ArrayList<>();
-        for (ComicRemoteEntity remoteEntity : comicRemoteEntities) {
-            transformedComics.add(transformToEntity(remoteEntity));
+        List<ComicEntity> entities = new ArrayList<>();
+        
+        if(comicRemoteEntities == null){
+            return entities;
         }
-        return transformedComics;
+        
+        for (ComicRemoteEntity remoteEntity : comicRemoteEntities) {
+            entities.add(transformToEntity(remoteEntity));
+        }
+        return entities;
     }
 
     private ComicEntity transformToEntity(ComicRemoteEntity comic) {
 
         ComicEntity entity = new ComicEntity();
+
+        if(comic == null){
+            return entity;
+        }
+
         entity.setId(comic.getId());
         entity.setTitle(comic.getTitle());
         entity.setDiamondCode(comic.getDiamondCode());

@@ -19,8 +19,13 @@ public class SpecifiedDateDBEntityDataMapper {
     public List<SpecifiedDateDBEntity> transformToDB(List<SpecifiedDateEntity> creatorEntities, int comicId) {
 
         List<SpecifiedDateDBEntity> entities = new ArrayList<>();
-        for (SpecifiedDateEntity entity : creatorEntities) {
-            entities.add(transformToDB(entity, comicId));
+
+        if(creatorEntities == null){
+            return entities;
+        }
+
+        for (int i = 0; i < creatorEntities.size(); i++) {
+            entities.add(transformToDB(creatorEntities.get(i), comicId));
         }
         return entities;
 
@@ -28,26 +33,42 @@ public class SpecifiedDateDBEntityDataMapper {
 
     private SpecifiedDateDBEntity transformToDB(SpecifiedDateEntity specifiedDateEntity, int comicId) {
         SpecifiedDateDBEntity entity = new SpecifiedDateDBEntity();
+        entity.setComicId(comicId);
+
+        if(specifiedDateEntity == null){
+            return entity;
+        }
+
         entity.setType(specifiedDateEntity.getType());
         entity.setDate(specifiedDateEntity.getDate());
-        entity.setComicId(comicId);
+
         return entity;
     }
 
-    public List<SpecifiedDateEntity> transformToEntity(List<SpecifiedDateDBEntity> creatorDBEntities) {
+    public List<SpecifiedDateEntity> transformToEntity(List<SpecifiedDateDBEntity> specifiedDateDBEntities) {
 
         List<SpecifiedDateEntity> entities = new ArrayList<>();
-        for (SpecifiedDateDBEntity entity : creatorDBEntities) {
-            entities.add(transformToEntity(entity));
+
+        if(specifiedDateDBEntities == null){
+            return entities;
+        }
+
+        for (int i = 0; i < specifiedDateDBEntities.size(); i++) {
+            entities.add(transformToEntity(specifiedDateDBEntities.get(i)));
         }
         return entities;
 
     }
 
-    private SpecifiedDateEntity transformToEntity(SpecifiedDateDBEntity specifiedDateEntity) {
+    private SpecifiedDateEntity transformToEntity(SpecifiedDateDBEntity specifiedDateDBEntity) {
         SpecifiedDateEntity entity = new SpecifiedDateEntity();
-        entity.setType(specifiedDateEntity.getType());
-        entity.setDate(specifiedDateEntity.getDate());
+
+        if(specifiedDateDBEntity == null){
+            return entity;
+        }
+
+        entity.setType(specifiedDateDBEntity.getType());
+        entity.setDate(specifiedDateDBEntity.getDate());
         return entity;
     }
 

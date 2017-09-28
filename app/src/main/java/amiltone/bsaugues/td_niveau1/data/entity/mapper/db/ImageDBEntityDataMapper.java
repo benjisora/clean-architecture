@@ -16,6 +16,11 @@ public class ImageDBEntityDataMapper {
 
     public ImageDBEntity transformToDB(ImageEntity imageEntity){
         ImageDBEntity entity = new ImageDBEntity();
+
+        if(imageEntity == null){
+            return entity;
+        }
+
         entity.setPath(imageEntity.getPath());
         entity.setExtension(imageEntity.getExtension());
 
@@ -24,6 +29,11 @@ public class ImageDBEntityDataMapper {
 
     public ImageEntity transformToEntity(ImageDBEntity imageDBEntity){
         ImageEntity entity = new ImageEntity();
+
+        if(imageDBEntity == null){
+            return entity;
+        }
+
         entity.setPath(imageDBEntity.getPath());
         entity.setExtension(imageDBEntity.getExtension());
 

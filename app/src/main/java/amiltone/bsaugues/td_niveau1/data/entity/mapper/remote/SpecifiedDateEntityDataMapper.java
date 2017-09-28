@@ -21,6 +21,11 @@ public class SpecifiedDateEntityDataMapper {
     public List<SpecifiedDateEntity> transformToEntity (List<SpecifiedDateRemoteEntity> creatorRemoteEntities){
 
         List<SpecifiedDateEntity> entities = new ArrayList<>();
+
+        if(creatorRemoteEntities == null){
+            return entities;
+        }
+
         for(SpecifiedDateRemoteEntity remoteEntity : creatorRemoteEntities){
             entities.add(transformToEntity(remoteEntity));
         }
@@ -30,6 +35,11 @@ public class SpecifiedDateEntityDataMapper {
 
     private SpecifiedDateEntity transformToEntity(SpecifiedDateRemoteEntity specifiedDateRemoteEntity){
         SpecifiedDateEntity entity = new SpecifiedDateEntity();
+
+        if(specifiedDateRemoteEntity == null){
+            return entity;
+        }
+
         entity.setType(specifiedDateRemoteEntity.getType());
         entity.setDate(specifiedDateRemoteEntity.getDate());
         return entity;

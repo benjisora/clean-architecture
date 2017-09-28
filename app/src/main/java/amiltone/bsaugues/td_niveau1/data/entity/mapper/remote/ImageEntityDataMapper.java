@@ -15,6 +15,11 @@ public class ImageEntityDataMapper {
 
     public ImageEntity transformToEntity(ImageRemoteEntity imageRemoteEntity){
         ImageEntity entity = new ImageEntity();
+
+        if(imageRemoteEntity == null){
+            return entity;
+        }
+
         entity.setPath(imageRemoteEntity.getPath());
         entity.setExtension(imageRemoteEntity.getExtension());
 

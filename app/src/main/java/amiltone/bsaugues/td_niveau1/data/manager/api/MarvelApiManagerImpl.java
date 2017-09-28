@@ -1,9 +1,8 @@
 package amiltone.bsaugues.td_niveau1.data.manager.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
-import amiltone.bsaugues.td_niveau1.data.entity.RootEnveloppeEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.remote.ComicRemoteEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.remote.RootEnveloppeRemoteEntity;
 import retrofit2.Retrofit;
@@ -24,10 +23,10 @@ public class MarvelApiManagerImpl implements MarvelApiManager {
     interface ApiService {
         @GET("comics")
         Observable<RootEnveloppeRemoteEntity> getComicsList(@Query("apikey") String apiKey,
-                                                      @Query("ts") String timeStamp,
-                                                      @Query("hash") String hash,
-                                                      @Query("format") String format,
-                                                      @Query("dateDescriptor") String dateDescriptor);
+                                                            @Query("ts") String timeStamp,
+                                                            @Query("hash") String hash,
+                                                            @Query("format") String format,
+                                                            @Query("dateDescriptor") String dateDescriptor);
     }
 
     private ApiService apiService;
@@ -51,9 +50,18 @@ public class MarvelApiManagerImpl implements MarvelApiManager {
                 .map(new Func1<RootEnveloppeRemoteEntity, List<ComicRemoteEntity>>() {
                     @Override
                     public List<ComicRemoteEntity> call(RootEnveloppeRemoteEntity rootEnveloppeRemoteEntity) {
-                        return rootEnveloppeRemoteEntity.data.results;
+                        return getNonNullList(rootEnveloppeRemoteEntity);
                     }
                 });
     }
+
+    private List<ComicRemoteEntity> getNonNullList(RootEnveloppeRemoteEntity rootEnveloppeRemoteEntity) {
+        if (rootEnveloppeRemoteEntity != null && rootEnveloppeRemoteEntity.data != null && rootEnveloppeRemoteEntity.data.results != null) {
+            return rootEnveloppeRemoteEntity.data.results;
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
 
 }

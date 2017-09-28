@@ -135,15 +135,6 @@ public class ComicDBEntityDataMapperTest {
         return comicDBEntity;
     }
 
-    @Test
-    public void transformToDBNullParameter() throws Exception {
-        try {
-            comicDBEntityDataMapper.transformToDB(null);
-            fail("NullParameterException expected because null list as parameter");
-        } catch (Exception e) {
-            assertThat(e).isInstanceOf(NullParameterException.class);
-        }
-    }
 
     @Test
     public void transformToDBSuccess() {
@@ -154,29 +145,9 @@ public class ComicDBEntityDataMapperTest {
     }
 
     @Test
-    public void transformToEntitiesNullParameter() throws Exception {
-        try {
-            comicDBEntityDataMapper.transformToEntity((List<ComicDBEntity>) null);
-            fail("NullParameterException expected because null list as parameter");
-        } catch (Exception e) {
-            assertThat(e).isInstanceOf(NullParameterException.class);
-        }
-    }
-
-    @Test
     public void transformToEntitiesSuccess() {
         assertThat(comicDBEntityDataMapper.transformToEntity(comicDBEntities))
                 .isEqualTo(comicEntities);
-    }
-
-    @Test
-    public void transformToEntity1NullParameter() throws Exception {
-        try {
-            comicDBEntityDataMapper.transformToEntity((ComicDBEntity) null);
-            fail("NullParameterException expected because null comic as parameter");
-        } catch (Exception e) {
-            assertThat(e).isInstanceOf(NullParameterException.class);
-        }
     }
 
     @Test

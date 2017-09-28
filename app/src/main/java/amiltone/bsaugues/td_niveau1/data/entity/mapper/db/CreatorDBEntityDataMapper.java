@@ -19,8 +19,13 @@ public class CreatorDBEntityDataMapper {
     public List<CreatorDBEntity> transformToDB(List<CreatorEntity> creatorEntities, int comicId) {
 
         List<CreatorDBEntity> entities = new ArrayList<>();
-        for (CreatorEntity entity : creatorEntities) {
-            entities.add(transformToDB(entity, comicId));
+
+        if(creatorEntities == null){
+            return entities;
+        }
+
+        for (int i = 0; i < creatorEntities.size(); i++) {
+            entities.add(transformToDB(creatorEntities.get(i), comicId));
         }
         return entities;
     }
@@ -28,30 +33,44 @@ public class CreatorDBEntityDataMapper {
     private CreatorDBEntity transformToDB(CreatorEntity creatorEntity, int comicId) {
 
         CreatorDBEntity entity = new CreatorDBEntity();
+        entity.setComicId(comicId);
+
+        if (creatorEntity == null) {
+            return entity;
+        }
+
         entity.setName(creatorEntity.getName());
         entity.setRole(creatorEntity.getRole());
-        entity.setComicId(comicId);
         entity.setResourceURI(creatorEntity.getResourceURI());
 
         return entity;
     }
 
-    public List<CreatorEntity> transformToEntity(List<CreatorDBEntity> creatorEntities) {
+    public List<CreatorEntity> transformToEntity(List<CreatorDBEntity> creatorDBEntities) {
 
         List<CreatorEntity> entities = new ArrayList<>();
-        for (CreatorDBEntity entity : creatorEntities) {
-            entities.add(transformToEntity(entity));
+
+        if(creatorDBEntities == null){
+            return entities;
+        }
+
+        for (int i = 0; i < creatorDBEntities.size(); i++) {
+            entities.add(transformToEntity(creatorDBEntities.get(i)));
         }
         return entities;
 
     }
 
-    private CreatorEntity transformToEntity(CreatorDBEntity creatorRemoteEntity) {
+    private CreatorEntity transformToEntity(CreatorDBEntity creatorRemoteDBEntity) {
 
         CreatorEntity entity = new CreatorEntity();
-        entity.setName(creatorRemoteEntity.getName());
-        entity.setRole(creatorRemoteEntity.getRole());
-        entity.setResourceURI(creatorRemoteEntity.getResourceURI());
+
+        if (creatorRemoteDBEntity == null) {
+            return entity;
+        }
+        entity.setName(creatorRemoteDBEntity.getName());
+        entity.setRole(creatorRemoteDBEntity.getRole());
+        entity.setResourceURI(creatorRemoteDBEntity.getResourceURI());
 
         return entity;
     }

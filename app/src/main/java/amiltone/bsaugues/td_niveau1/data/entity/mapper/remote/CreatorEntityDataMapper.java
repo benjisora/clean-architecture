@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import amiltone.bsaugues.td_niveau1.data.entity.CreatorEntity;
-import amiltone.bsaugues.td_niveau1.data.entity.CreatorsEnveloppeEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.remote.CreatorRemoteEntity;
-import amiltone.bsaugues.td_niveau1.data.entity.remote.CreatorsEnveloppeRemoteEntity;
 
 /**
  * Created by amiltonedev_dt013 on 22/09/2017.
@@ -14,23 +12,32 @@ import amiltone.bsaugues.td_niveau1.data.entity.remote.CreatorsEnveloppeRemoteEn
 
 public class CreatorEntityDataMapper {
 
-    public CreatorEntityDataMapper(){
+    public CreatorEntityDataMapper() {
 
     }
 
-    public List<CreatorEntity> transformToEntity (List<CreatorRemoteEntity> creatorRemoteEntities){
+    public List<CreatorEntity> transformToEntity(List<CreatorRemoteEntity> creatorRemoteEntities) {
 
         List<CreatorEntity> entities = new ArrayList<>();
-        for(CreatorRemoteEntity remoteEntity : creatorRemoteEntities){
+        if (creatorRemoteEntities == null) {
+            return entities;
+        }
+
+        for (CreatorRemoteEntity remoteEntity : creatorRemoteEntities) {
             entities.add(transformToEntity(remoteEntity));
         }
         return entities;
 
     }
 
-    private CreatorEntity transformToEntity(CreatorRemoteEntity creatorRemoteEntity){
+    private CreatorEntity transformToEntity(CreatorRemoteEntity creatorRemoteEntity) {
 
         CreatorEntity entity = new CreatorEntity();
+
+        if (creatorRemoteEntity == null) {
+            return entity;
+        }
+
         entity.setName(creatorRemoteEntity.getName());
         entity.setRole(creatorRemoteEntity.getRole());
 

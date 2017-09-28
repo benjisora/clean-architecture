@@ -19,8 +19,13 @@ public class SpecifiedUrlDBEntityDataMapper {
     public List<SpecifiedUrlDBEntity> transformToDB(List<SpecifiedUrlEntity> specifiedUrlEntities, int comicId) {
 
         List<SpecifiedUrlDBEntity> entities = new ArrayList<>();
-        for (SpecifiedUrlEntity entity : specifiedUrlEntities) {
-            entities.add(transformToDB(entity, comicId));
+
+        if (specifiedUrlEntities == null) {
+            return entities;
+        }
+
+        for (int i = 0; i < specifiedUrlEntities.size(); i++) {
+            entities.add(transformToDB(specifiedUrlEntities.get(i), comicId));
         }
         return entities;
 
@@ -28,17 +33,28 @@ public class SpecifiedUrlDBEntityDataMapper {
 
     private SpecifiedUrlDBEntity transformToDB(SpecifiedUrlEntity specifiedUrlEntity, int comicId) {
         SpecifiedUrlDBEntity entity = new SpecifiedUrlDBEntity();
+        entity.setComicId(comicId);
+
+        if (specifiedUrlEntity == null) {
+            return entity;
+        }
+
         entity.setType(specifiedUrlEntity.getType());
         entity.setUrl(specifiedUrlEntity.getUrl());
-        entity.setComicId(comicId);
+
         return entity;
     }
 
     public List<SpecifiedUrlEntity> transformToEntity(List<SpecifiedUrlDBEntity> specifiedUrlDBEntities) {
 
         List<SpecifiedUrlEntity> entities = new ArrayList<>();
-        for (SpecifiedUrlDBEntity entity : specifiedUrlDBEntities) {
-            entities.add(transformToEntity(entity));
+
+        if (specifiedUrlDBEntities == null) {
+            return entities;
+        }
+
+        for (int i = 0; i < specifiedUrlDBEntities.size(); i++) {
+            entities.add(transformToEntity(specifiedUrlDBEntities.get(i)));
         }
         return entities;
 
@@ -46,6 +62,11 @@ public class SpecifiedUrlDBEntityDataMapper {
 
     private SpecifiedUrlEntity transformToEntity(SpecifiedUrlDBEntity specifiedUrlDBEntity) {
         SpecifiedUrlEntity entity = new SpecifiedUrlEntity();
+
+        if (specifiedUrlDBEntity == null) {
+            return entity;
+        }
+
         entity.setType(specifiedUrlDBEntity.getType());
         entity.setUrl(specifiedUrlDBEntity.getUrl());
         return entity;

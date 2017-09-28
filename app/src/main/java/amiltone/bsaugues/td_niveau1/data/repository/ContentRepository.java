@@ -44,7 +44,7 @@ public class ContentRepository {
         return Observable.defer(new Func0<Observable<List<ComicEntity>>>() {
             @Override
             public Observable<List<ComicEntity>> call() {
-                Log.d("ContentRepository", "Try to get list from cache");
+                //Log.d("ContentRepository", "Try to get list from cache");
                 return Observable.just(cacheManager.getCachedList());
             }
         }).onErrorResumeNext(new Func1<Throwable, Observable<? extends List<ComicEntity>>>() {
@@ -53,13 +53,13 @@ public class ContentRepository {
                 return Observable.just(databaseManager.getDatabaseList()).map(new Func1<List<ComicDBEntity>, List<ComicEntity>>() {
                     @Override
                     public List<ComicEntity> call(List<ComicDBEntity> comicDBEntities) {
-                        Log.d("ContentRepository", "Gotten list from DB");
+                        //Log.d("ContentRepository", "Gotten list from DB");
                         return comicDBEntityDataMapper.transformToEntity(comicDBEntities);
                     }
                 }).doOnNext(new Action1<List<ComicEntity>>() {
                     @Override
                     public void call(List<ComicEntity> comicEntities) {
-                        Log.d("ContentRepository", "Saved list in cache from DB");
+                        //Log.d("ContentRepository", "Saved list in cache from DB");
                         cacheManager.saveComicList(comicEntities);
                     }
                 });
@@ -70,13 +70,13 @@ public class ContentRepository {
                 return marvelApiManager.getComicsListFromApi().map(new Func1<List<ComicRemoteEntity>, List<ComicEntity>>() {
                     @Override
                     public List<ComicEntity> call(List<ComicRemoteEntity> comicRemoteEntities) {
-                        Log.d("ContentRepository", "Gotten list from API");
+                        //Log.d("ContentRepository", "Gotten list from API");
                         return comicEntityDataMapper.transformToEntity(comicRemoteEntities);
                     }
                 }).doOnNext(new Action1<List<ComicEntity>>() {
                     @Override
                     public void call(List<ComicEntity> comicEntities) {
-                        Log.d("ContentRepository", "Saved list in cache and DB from API");
+                        //Log.d("ContentRepository", "Saved list in cache and DB from API");
                         databaseManager.saveComicList(comicDBEntityDataMapper.transformToDB(comicEntities));
                         cacheManager.saveComicList(comicEntities);
                     }
