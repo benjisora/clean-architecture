@@ -120,6 +120,7 @@ public class ContentRepositoryTest {
 
             @Override
             public void onNext(List<ComicEntity> comicEntities) {
+                assertThat(comicEntities).isNotNull();
 
             }
         });
@@ -145,7 +146,7 @@ public class ContentRepositoryTest {
 
             @Override
             public void onNext(List<ComicEntity> comicEntities) {
-
+                assertThat(comicEntities).isNotNull().isEmpty();
             }
         });
     }

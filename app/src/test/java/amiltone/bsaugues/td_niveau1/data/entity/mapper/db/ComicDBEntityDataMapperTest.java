@@ -138,10 +138,8 @@ public class ComicDBEntityDataMapperTest {
 
     @Test
     public void transformToDBSuccess() {
-
         assertThat(comicDBEntityDataMapper.transformToDB(comicEntities))
                 .isEqualTo(comicDBEntities);
-
     }
 
     @Test
