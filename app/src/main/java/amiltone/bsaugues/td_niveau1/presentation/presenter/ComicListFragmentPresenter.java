@@ -1,12 +1,14 @@
 package amiltone.bsaugues.td_niveau1.presentation.presenter;
 
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import amiltone.bsaugues.td_niveau1.TdApplication;
 import amiltone.bsaugues.td_niveau1.data.repository.ContentRepository;
-import amiltone.bsaugues.td_niveau1.data.model.Comic;
+import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewinterface.ComicListView;
 import amiltone.bsaugues.td_niveau1.presentation.navigator.listener.NavigatorListener;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewmodel.ComicViewModel;
@@ -21,15 +23,16 @@ import rx.schedulers.Schedulers;
 
 public class ComicListFragmentPresenter {
 
+    public static final String TAG = "ComicListPresenter";
+
     private ComicListView comicListView;
     private NavigatorListener navigatorListener;
 
-
-    private ContentRepository apiRepository;
+    private ContentRepository contentRepository;
 
     public ComicListFragmentPresenter(NavigatorListener navigatorListener) {
         this.navigatorListener = navigatorListener;
-        this.apiRepository = TdApplication.getInstance().getContentRepository();
+        this.contentRepository = TdApplication.getInstance().getContentRepository();
     }
 
     public void setComicListView(ComicListView comicListView) {
@@ -38,9 +41,10 @@ public class ComicListFragmentPresenter {
 
 
     public void retrieveData() {
-        Observable<List<Comic>> comics = this.apiRepository.getComicsList();
+
+        Observable<List<ComicEntity>> comics = this.contentRepository.getComicsList();
         comics.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<Comic>>() {
+                .subscribe(new Subscriber<List<ComicEntity>>() {
 
                     @Override
                     public void onCompleted() {
@@ -50,13 +54,18 @@ public class ComicListFragmentPresenter {
                     @Override
                     public void onError(Throwable e) {
 
+                        //gérer pas de data du tout
                         e.printStackTrace();
                     }
 
                     @Override
-                    public void onNext(List<Comic> comics) {
+                    public void onNext(List<ComicEntity> comics) {
+                        if(comics.isEmpty()){
+                            Log.d(TAG, "onNext: list empty");
+                        } else {
+                            comicListView.displayComics(getComicsViewModel(comics));
+                        }
 
-                        comicListView.displayComics(getComicsViewModel(comics));
                     }
                 });
     }
@@ -65,9 +74,9 @@ public class ComicListFragmentPresenter {
         navigatorListener.requestDisplayDetailFragment(id);
     }
 
-    private List<ComicViewModel> getComicsViewModel(List<Comic> comics){
+    private List<ComicViewModel> getComicsViewModel(List<ComicEntity> comics){
         List<ComicViewModel> comicsViewModel = new ArrayList<>();
-        for(Comic comic : comics){
+        for(ComicEntity comic : comics){
             comicsViewModel.add(new ComicViewModel(comic));
         }
         return comicsViewModel;

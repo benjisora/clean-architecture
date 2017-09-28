@@ -85,7 +85,7 @@ public class ComicDetailsFragment extends Fragment implements ComicDetailView {
         diamondCode.setText(comicViewModel.getComic().getDiamondCode());
 
         /*
-        for (Creator creator : comic.getCreators()) {
+        for (CreatorRemoteEntity creator : comic.getCreators()) {
             //TODO: autogenerate layout for each creator
         }
         */

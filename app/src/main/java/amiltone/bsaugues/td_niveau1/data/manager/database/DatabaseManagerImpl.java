@@ -1,15 +1,19 @@
 package amiltone.bsaugues.td_niveau1.data.manager.database;
 
 import com.raizlabs.android.dbflow.annotation.Database;
-import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.raizlabs.android.dbflow.sql.language.Method;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.raizlabs.android.dbflow.sql.language.Select;
+import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
+import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import amiltone.bsaugues.td_niveau1.TdApplication;
+import amiltone.bsaugues.td_niveau1.data.entity.db.ComicDBEntity;
+import amiltone.bsaugues.td_niveau1.data.entity.db.ComicDBEntity_Table;
 import amiltone.bsaugues.td_niveau1.data.exception.ComicNotFoundException;
-import amiltone.bsaugues.td_niveau1.data.model.Comic;
+import amiltone.bsaugues.td_niveau1.data.exception.NoComicInDatabaseException;
 
 /**
  * Created by amiltonedev_dt013 on 20/09/2017.
@@ -17,46 +21,58 @@ import amiltone.bsaugues.td_niveau1.data.model.Comic;
 @Database(name = DatabaseManager.NAME, version = DatabaseManager.VERSION)
 public class DatabaseManagerImpl implements DatabaseManager {
 
-    private DatabaseDefinition database;
-
-    private List<Comic> comicList;
-
-    public DatabaseManagerImpl(TdApplication applicationContext) {
-        comicList = new ArrayList<>();
-        FlowManager.init(applicationContext);
-        database = FlowManager.getDatabase(DatabaseManagerImpl.class);
+    public DatabaseManagerImpl() {
     }
 
     @Override
-    public Comic getComicById(int id) {
+    public ComicDBEntity getComicById(int id) {
 
-        for(Comic comic : comicList){
-            if(comic.getId() == id){
-                return comic;
-            }
-        }
-        throw new ComicNotFoundException();
-    }
+        ComicDBEntity comicDBEntity = SQLite.select()
+                .from(ComicDBEntity.class)
+                .where(ComicDBEntity_Table.id.eq(id))
+                .querySingle();
 
-    @Override
-    public void saveComicList(List<Comic> comics) {
-        comicList.clear();
-        comicList.addAll(comics);
-    }
-
-    @Override
-    public List<Comic> getDatabaseList() {
-        if(isDatabaseEmpty()){
-            throw null;
+        if (comicDBEntity == null) {
+            throw new ComicNotFoundException();
         } else {
-            return comicList;
+            return comicDBEntity;
+        }
+
+
+    }
+
+    @Override
+    public void saveComicList(final List<ComicDBEntity> comics) {
+
+        FlowManager.getDatabase(DatabaseManagerImpl.class).executeTransaction(new ITransaction() {
+            @Override
+            public void execute(DatabaseWrapper databaseWrapper) {
+                // something here
+                for (ComicDBEntity comic : comics) {
+                    comic.save();
+                }
+            }
+        });
+    }
+
+    @Override
+    public List<ComicDBEntity> getDatabaseList() {
+
+        List<ComicDBEntity> comics = SQLite.select()
+                .from(ComicDBEntity.class)
+                .queryList();
+
+        if (comics.isEmpty()) {
+            throw new NoComicInDatabaseException();
+        } else {
+            return comics;
         }
 
     }
 
     @Override
     public boolean isDatabaseEmpty() {
-        return comicList == null || comicList.isEmpty();
+        return new Select(Method.count()).from(ComicDBEntity.class).count() == 0;
     }
 
 
