@@ -43,7 +43,7 @@ public class ComicViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, mView);
     }
 
-    public void bind(ComicViewModel comicViewModel){
+    public void bindContent(ComicViewModel comicViewModel){
 
         mTitle.setText(comicViewModel.getComicTitle());
         mDate.setText(comicViewModel.getComicDate());
@@ -52,7 +52,7 @@ public class ComicViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bind(final OnComicClickedListener onComicClickedListener){
+    public void bindListener(final OnComicClickedListener onComicClickedListener){
 
         mView.setOnClickListener(new View.OnClickListener() {
             @Override

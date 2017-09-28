@@ -1,11 +1,13 @@
 package amiltone.bsaugues.td_niveau1.presentation.presenter;
 
 
-import amiltone.bsaugues.td_niveau1.TdApplication;
-import amiltone.bsaugues.td_niveau1.data.repository.ContentRepository;
+import javax.inject.Inject;
+
 import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
-import amiltone.bsaugues.td_niveau1.presentation.view.viewinterface.ComicDetailView;
+import amiltone.bsaugues.td_niveau1.data.repository.ContentRepository;
+import amiltone.bsaugues.td_niveau1.presentation.di.PerActivity;
 import amiltone.bsaugues.td_niveau1.presentation.navigator.listener.NavigatorListener;
+import amiltone.bsaugues.td_niveau1.presentation.view.viewinterface.ComicDetailView;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewmodel.ComicViewModel;
 import rx.Observable;
 import rx.Subscriber;
@@ -15,7 +17,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by amiltonedev_dt013 on 20/09/2017.
  */
-
+@PerActivity
 public class ComicDetailFragmentPresenter {
 
     private ComicDetailView comicDetailView;
@@ -23,9 +25,10 @@ public class ComicDetailFragmentPresenter {
 
     private ContentRepository contentRepository;
 
-    public ComicDetailFragmentPresenter(NavigatorListener navigatorListener) {
+    @Inject
+    public ComicDetailFragmentPresenter(ContentRepository contentRepository, NavigatorListener navigatorListener) {
         this.navigatorListener = navigatorListener;
-        this.contentRepository = TdApplication.getInstance().getContentRepository();
+        this.contentRepository = contentRepository;
     }
 
     public void setComicDetailView(ComicDetailView comicDetailView) {
@@ -60,7 +63,7 @@ public class ComicDetailFragmentPresenter {
 
     }
 
-    public void displayComicDetails(ComicViewModel comicViewModel){
+    public void displayComicDetails(ComicViewModel comicViewModel) {
         comicDetailView.displayComicDetails(comicViewModel);
     }
 

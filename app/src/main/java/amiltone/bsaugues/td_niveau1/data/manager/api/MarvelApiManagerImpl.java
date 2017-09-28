@@ -3,6 +3,9 @@ package amiltone.bsaugues.td_niveau1.data.manager.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import amiltone.bsaugues.td_niveau1.data.entity.remote.ComicRemoteEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.remote.RootEnveloppeRemoteEntity;
 import retrofit2.Retrofit;
@@ -17,7 +20,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by amiltonedev_dt013 on 20/09/2017.
  */
-
+@Singleton
 public class MarvelApiManagerImpl implements MarvelApiManager {
 
     interface ApiService {
@@ -31,6 +34,7 @@ public class MarvelApiManagerImpl implements MarvelApiManager {
 
     private ApiService apiService;
 
+    @Inject
     public MarvelApiManagerImpl() {
         this.apiService = new Retrofit.Builder()
                 .baseUrl(BASE_URL)

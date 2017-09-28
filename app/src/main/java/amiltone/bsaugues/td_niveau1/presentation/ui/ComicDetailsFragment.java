@@ -12,14 +12,18 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import javax.inject.Inject;
+
 import amiltone.bsaugues.td_niveau1.R;
+import amiltone.bsaugues.td_niveau1.presentation.di.PerActivity;
+import amiltone.bsaugues.td_niveau1.presentation.navigator.listener.NavigatorListener;
 import amiltone.bsaugues.td_niveau1.presentation.presenter.ComicDetailFragmentPresenter;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewinterface.ComicDetailView;
-import amiltone.bsaugues.td_niveau1.presentation.navigator.listener.NavigatorListener;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewmodel.ComicViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@PerActivity
 public class ComicDetailsFragment extends Fragment implements ComicDetailView {
 
     private static final String COMIC_KEY = "amiltone.bsaugues.td_niveau1.presentation.ui.ComicDetailsFragment.COMIC_KEY";
@@ -39,7 +43,8 @@ public class ComicDetailsFragment extends Fragment implements ComicDetailView {
     @BindView(R.id.comic_detail_diamond_code)
     public TextView diamondCode;
 
-    private ComicDetailFragmentPresenter comicDetailFragmentPresenter;
+    @Inject
+    ComicDetailFragmentPresenter comicDetailFragmentPresenter;
 
     public static ComicDetailsFragment newInstance(int id) {
 
@@ -54,7 +59,8 @@ public class ComicDetailsFragment extends Fragment implements ComicDetailView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        comicDetailFragmentPresenter = new ComicDetailFragmentPresenter((NavigatorListener) getActivity());
+
+        ((ComicListActivity)getActivity()).getActivityComponent().inject(this);
         comicDetailFragmentPresenter.setComicDetailView(this);
 
     }
@@ -84,10 +90,5 @@ public class ComicDetailsFragment extends Fragment implements ComicDetailView {
 
         diamondCode.setText(comicViewModel.getComic().getDiamondCode());
 
-        /*
-        for (CreatorRemoteEntity creator : comic.getCreators()) {
-            //TODO: autogenerate layout for each creator
-        }
-        */
     }
 }

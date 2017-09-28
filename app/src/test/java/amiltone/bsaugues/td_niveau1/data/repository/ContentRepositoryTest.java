@@ -21,12 +21,9 @@ import amiltone.bsaugues.td_niveau1.data.manager.database.DatabaseManager;
 import amiltone.bsaugues.td_niveau1.data.manager.database.DatabaseManagerImpl;
 import rx.Observable;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
-import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -49,7 +46,7 @@ public class ContentRepositoryTest {
     //@Rule
     //public MockitoRule mockitoRule = MockitoJUnit.rule();
 
-    private ContentRepository contentRepository;
+    private ContentRepositoryImpl contentRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -58,7 +55,7 @@ public class ContentRepositoryTest {
         cacheManager = Mockito.mock(CacheManagerImpl.class);
         databaseManager = Mockito.mock(DatabaseManagerImpl.class);
 
-        contentRepository = Mockito.spy(new ContentRepository(marvelApiManager, cacheManager, databaseManager));
+        contentRepository = Mockito.spy(new ContentRepositoryImpl(marvelApiManager, cacheManager, databaseManager));
     }
 
     @Test

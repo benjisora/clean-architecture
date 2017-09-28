@@ -11,12 +11,13 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import amiltone.bsaugues.td_niveau1.R;
-import amiltone.bsaugues.td_niveau1.presentation.presenter.ComicListFragmentPresenter;
-import amiltone.bsaugues.td_niveau1.presentation.view.viewinterface.ComicListView;
 import amiltone.bsaugues.td_niveau1.presentation.adapter.ComicRecyclerViewAdapter;
+import amiltone.bsaugues.td_niveau1.presentation.presenter.ComicListFragmentPresenter;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewholder.ComicViewHolder;
-import amiltone.bsaugues.td_niveau1.presentation.navigator.listener.NavigatorListener;
+import amiltone.bsaugues.td_niveau1.presentation.view.viewinterface.ComicListView;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewmodel.ComicViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,9 +27,11 @@ public class ComicListFragment extends Fragment implements ComicListView, ComicV
     @BindView(R.id.recycler_view)
     public RecyclerView recyclerView;
 
-    private ComicListFragmentPresenter comicListFragmentPresenter;
+    @Inject
+    ComicListFragmentPresenter comicListFragmentPresenter;
 
-    private ComicRecyclerViewAdapter adapter;
+    @Inject
+    ComicRecyclerViewAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,11 +39,13 @@ public class ComicListFragment extends Fragment implements ComicListView, ComicV
         View view = inflater.inflate(R.layout.fragment_comic_list, container, false);
         ButterKnife.bind(this, view);
 
-        comicListFragmentPresenter = new ComicListFragmentPresenter((NavigatorListener) getActivity());
+        ((ComicListActivity) getActivity()).getActivityComponent().inject(this);
         comicListFragmentPresenter.setComicListView(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ComicRecyclerViewAdapter(getActivity(), this);
+
+        adapter.setOnComicClickedListener(this);
+
         recyclerView.setAdapter(adapter);
         return view;
     }

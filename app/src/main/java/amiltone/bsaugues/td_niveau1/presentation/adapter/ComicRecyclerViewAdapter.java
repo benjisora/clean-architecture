@@ -9,21 +9,28 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import amiltone.bsaugues.td_niveau1.R;
+import amiltone.bsaugues.td_niveau1.presentation.di.PerActivity;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewholder.ComicViewHolder;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewmodel.ComicViewModel;
 
-
+@PerActivity
 public class ComicRecyclerViewAdapter extends RecyclerView.Adapter<ComicViewHolder> {
 
     private List<ComicViewModel> mValues;
-    private final ComicViewHolder.OnComicClickedListener onComicClickedListener;
+    private ComicViewHolder.OnComicClickedListener onComicClickedListener;
     private final Context mContext;
 
-    public ComicRecyclerViewAdapter(Context context, ComicViewHolder.OnComicClickedListener listener) {
-        onComicClickedListener = listener;
+    @Inject
+    public ComicRecyclerViewAdapter(Context context) {
         mContext = context;
         mValues = new ArrayList<>();
+    }
+
+    public void setOnComicClickedListener(ComicViewHolder.OnComicClickedListener onComicClickedListener) {
+        this.onComicClickedListener = onComicClickedListener;
     }
 
     public void setItems(List<ComicViewModel> comicViewModels){
@@ -45,8 +52,11 @@ public class ComicRecyclerViewAdapter extends RecyclerView.Adapter<ComicViewHold
 
     @Override
     public void onBindViewHolder(final ComicViewHolder holder, int position) {
-        holder.bind(mValues.get(position));
-        holder.bind(onComicClickedListener);
+        holder.bindContent(mValues.get(position));
+
+        if(onComicClickedListener != null){
+            holder.bindListener(onComicClickedListener);
+        }
     }
 
     @Override

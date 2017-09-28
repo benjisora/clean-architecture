@@ -6,9 +6,12 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import amiltone.bsaugues.td_niveau1.TdApplication;
+import javax.inject.Inject;
+
 import amiltone.bsaugues.td_niveau1.data.repository.ContentRepository;
+import amiltone.bsaugues.td_niveau1.data.repository.ContentRepositoryImpl;
 import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
+import amiltone.bsaugues.td_niveau1.presentation.di.PerActivity;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewinterface.ComicListView;
 import amiltone.bsaugues.td_niveau1.presentation.navigator.listener.NavigatorListener;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewmodel.ComicViewModel;
@@ -20,7 +23,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by amiltonedev_dt013 on 20/09/2017.
  */
-
+@PerActivity
 public class ComicListFragmentPresenter {
 
     public static final String TAG = "ComicListPresenter";
@@ -30,9 +33,10 @@ public class ComicListFragmentPresenter {
 
     private ContentRepository contentRepository;
 
-    public ComicListFragmentPresenter(NavigatorListener navigatorListener) {
+    @Inject
+    public ComicListFragmentPresenter(ContentRepository contentRepository, NavigatorListener navigatorListener) {
         this.navigatorListener = navigatorListener;
-        this.contentRepository = TdApplication.getInstance().getContentRepository();
+        this.contentRepository = contentRepository;
     }
 
     public void setComicListView(ComicListView comicListView) {

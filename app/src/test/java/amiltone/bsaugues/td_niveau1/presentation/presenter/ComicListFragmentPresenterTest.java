@@ -6,14 +6,14 @@ import org.junit.Test;
 import amiltone.bsaugues.td_niveau1.data.manager.api.MarvelApiManagerImpl;
 import amiltone.bsaugues.td_niveau1.data.manager.cache.CacheManagerImpl;
 import amiltone.bsaugues.td_niveau1.data.manager.database.DatabaseManagerImpl;
-import amiltone.bsaugues.td_niveau1.data.repository.ContentRepository;
+import amiltone.bsaugues.td_niveau1.data.repository.ContentRepositoryImpl;
 
 /**
  * Created by amiltonedev_dt013 on 27/09/2017.
  */
 public class ComicListFragmentPresenterTest {
 
-    ContentRepository contentRepository = new ContentRepository(
+    ContentRepositoryImpl contentRepository = new ContentRepositoryImpl(
             new MarvelApiManagerImpl(),
             new CacheManagerImpl(),
             new DatabaseManagerImpl()

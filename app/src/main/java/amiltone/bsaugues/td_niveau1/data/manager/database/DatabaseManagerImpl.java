@@ -10,6 +10,9 @@ import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import amiltone.bsaugues.td_niveau1.data.entity.db.ComicDBEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.db.ComicDBEntity_Table;
 import amiltone.bsaugues.td_niveau1.data.exception.ComicNotFoundException;
@@ -18,9 +21,11 @@ import amiltone.bsaugues.td_niveau1.data.exception.NoComicInDatabaseException;
 /**
  * Created by amiltonedev_dt013 on 20/09/2017.
  */
+@Singleton
 @Database(name = DatabaseManager.NAME, version = DatabaseManager.VERSION)
 public class DatabaseManagerImpl implements DatabaseManager {
 
+    @Inject
     public DatabaseManagerImpl() {
     }
 
