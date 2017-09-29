@@ -1,0 +1,19 @@
+package amiltone.bsaugues.td_niveau1.data.module.net;
+
+import java.util.List;
+
+import amiltone.bsaugues.td_niveau1.data.entity.remote.ComicRemoteEntity;
+import rx.Observable;
+
+/**
+ * Created by amiltonedev_dt013 on 29/09/2017.
+ */
+
+public interface ModuleNet {
+
+    String BASE_URL = "http://gateway.marvel.com/v1/public/";
+
+    Observable<List<ComicRemoteEntity>> getComicsListFromApi();
+
+    boolean isOfflineException(Throwable throwable);
+}
