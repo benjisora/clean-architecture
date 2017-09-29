@@ -2,11 +2,13 @@ package amiltone.bsaugues.td_niveau1.presentation.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,6 +17,7 @@ import amiltone.bsaugues.td_niveau1.R;
 import amiltone.bsaugues.td_niveau1.presentation.di.PerActivity;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewholder.ComicViewHolder;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewmodel.ComicViewModel;
+
 
 @PerActivity
 public class ComicRecyclerViewAdapter extends RecyclerView.Adapter<ComicViewHolder> {
@@ -36,6 +39,7 @@ public class ComicRecyclerViewAdapter extends RecyclerView.Adapter<ComicViewHold
     public void setItems(List<ComicViewModel> comicViewModels){
         mValues.clear();
         mValues.addAll(comicViewModels);
+        Collections.sort(mValues);
         notifyDataSetChanged();
     }
 

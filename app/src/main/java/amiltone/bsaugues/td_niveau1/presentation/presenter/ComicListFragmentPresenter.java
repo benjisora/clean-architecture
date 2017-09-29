@@ -30,7 +30,6 @@ public class ComicListFragmentPresenter {
 
     private ComicListView comicListView;
     private NavigatorListener navigatorListener;
-
     private ContentRepository contentRepository;
 
     @Inject
@@ -69,7 +68,6 @@ public class ComicListFragmentPresenter {
                         } else {
                             comicListView.displayComics(getComicsViewModel(comics));
                         }
-
                     }
                 });
     }

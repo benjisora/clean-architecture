@@ -4,14 +4,17 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import amiltone.bsaugues.td_niveau1.MyApplication;
 import amiltone.bsaugues.td_niveau1.R;
 import amiltone.bsaugues.td_niveau1.presentation.di.ActivityModule;
+import amiltone.bsaugues.td_niveau1.presentation.di.PerActivity;
 import amiltone.bsaugues.td_niveau1.presentation.di.component.ActivityComponent;
 import amiltone.bsaugues.td_niveau1.presentation.di.component.DaggerActivityComponent;
 import amiltone.bsaugues.td_niveau1.presentation.navigator.Navigator;
 import amiltone.bsaugues.td_niveau1.presentation.navigator.listener.NavigatorListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 
 public class ComicListActivity extends AppCompatActivity implements NavigatorListener {
 
@@ -28,16 +31,15 @@ public class ComicListActivity extends AppCompatActivity implements NavigatorLis
         setContentView(R.layout.activity_comic_list);
         ButterKnife.bind(this);
 
-        activityComponent = DaggerActivityComponent.builder().activityModule(new ActivityModule(this)).build();
+        activityComponent = DaggerActivityComponent.builder().activityModule(new ActivityModule(this))
+                .applicationComponent(((MyApplication) getApplication()).getApplicationComponent()).build();
 
         setSupportActionBar(toolbar);
-
 
         navigator = new Navigator(getSupportFragmentManager());
         navigator.displayComicList();
 
     }
-
 
 
     @Override

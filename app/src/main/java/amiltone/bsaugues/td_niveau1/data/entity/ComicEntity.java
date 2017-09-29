@@ -92,5 +92,16 @@ public class ComicEntity implements Serializable {
         return o instanceof ComicEntity && ((ComicEntity) o).getId() == this.getId();
     }
 
-
+    @Override
+    public String toString() {
+        return "ComicEntity{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", diamondCode='" + diamondCode + '\'' +
+                ", urls=" + urls +
+                ", dates=" + dates +
+                ", image=" + image +
+                ", creators=" + creators +
+                '}';
+    }
 }

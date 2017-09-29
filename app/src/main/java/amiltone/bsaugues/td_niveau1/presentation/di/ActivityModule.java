@@ -1,5 +1,6 @@
 package amiltone.bsaugues.td_niveau1.presentation.di;
 
+import amiltone.bsaugues.td_niveau1.presentation.navigator.Navigator;
 import amiltone.bsaugues.td_niveau1.presentation.navigator.listener.NavigatorListener;
 import dagger.Module;
 import dagger.Provides;
@@ -20,4 +21,5 @@ public class ActivityModule {
     NavigatorListener provideNavigatorListener() {
         return navigatorListener;
     }
+
 }

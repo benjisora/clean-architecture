@@ -15,6 +15,7 @@ import javax.inject.Inject;
 
 import amiltone.bsaugues.td_niveau1.R;
 import amiltone.bsaugues.td_niveau1.presentation.adapter.ComicRecyclerViewAdapter;
+import amiltone.bsaugues.td_niveau1.presentation.di.PerActivity;
 import amiltone.bsaugues.td_niveau1.presentation.presenter.ComicListFragmentPresenter;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewholder.ComicViewHolder;
 import amiltone.bsaugues.td_niveau1.presentation.view.viewinterface.ComicListView;
@@ -22,6 +23,7 @@ import amiltone.bsaugues.td_niveau1.presentation.view.viewmodel.ComicViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@PerActivity
 public class ComicListFragment extends Fragment implements ComicListView, ComicViewHolder.OnComicClickedListener {
 
     @BindView(R.id.recycler_view)

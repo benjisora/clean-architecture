@@ -24,7 +24,7 @@ import rx.functions.Func1;
  * Created by amiltonedev_dt013 on 20/09/2017.
  */
 @Singleton
-public class ContentRepositoryImpl implements ContentRepository{
+public class ContentRepositoryImpl implements ContentRepository {
 
     private MarvelApiManager marvelApiManager;
     private CacheManager cacheManager;
@@ -34,12 +34,12 @@ public class ContentRepositoryImpl implements ContentRepository{
     private ComicDBEntityDataMapper comicDBEntityDataMapper;
 
     @Inject
-    public ContentRepositoryImpl(MarvelApiManager apiManager, CacheManager cacheManager, DatabaseManager databaseManager) {
+    public ContentRepositoryImpl(MarvelApiManager apiManager, CacheManager cacheManager, DatabaseManager databaseManager, ComicEntityDataMapper comicEntityDataMapper, ComicDBEntityDataMapper comicDBEntityDataMapper) {
         this.marvelApiManager = apiManager;
         this.cacheManager = cacheManager;
         this.databaseManager = databaseManager;
-        comicEntityDataMapper = new ComicEntityDataMapper();
-        comicDBEntityDataMapper = new ComicDBEntityDataMapper();
+        this.comicEntityDataMapper = comicEntityDataMapper;
+        this.comicDBEntityDataMapper = comicDBEntityDataMapper;
     }
 
     @Override

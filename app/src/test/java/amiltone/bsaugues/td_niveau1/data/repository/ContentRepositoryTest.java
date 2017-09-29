@@ -55,7 +55,7 @@ public class ContentRepositoryTest {
         cacheManager = Mockito.mock(CacheManagerImpl.class);
         databaseManager = Mockito.mock(DatabaseManagerImpl.class);
 
-        contentRepository = Mockito.spy(new ContentRepositoryImpl(marvelApiManager, cacheManager, databaseManager));
+        //contentRepository = Mockito.spy(new ContentRepositoryImpl(marvelApiManager, cacheManager, databaseManager, comicEntityDataMapper, comicDBEntityDataMapper));
     }
 
     @Test

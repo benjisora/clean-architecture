@@ -3,13 +3,16 @@ package amiltone.bsaugues.td_niveau1.data.entity.mapper.remote;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.remote.ComicRemoteEntity;
 
 /**
  * Created by amiltonedev_dt013 on 22/09/2017.
  */
-
+@Singleton
 public class ComicEntityDataMapper {
 
     private SpecifiedUrlEntityDataMapper specifiedUrlEntityDataMapper;
@@ -17,20 +20,21 @@ public class ComicEntityDataMapper {
     private ImageEntityDataMapper imageEntityDataMapper;
     private CreatorsEnveloppeEntityDataMapper creatorsEnveloppeEntityDataMapper;
 
-    public ComicEntityDataMapper() {
-        this.specifiedUrlEntityDataMapper = new SpecifiedUrlEntityDataMapper();
-        this.specifiedDateEntityDataMapper = new SpecifiedDateEntityDataMapper();
-        this.imageEntityDataMapper = new ImageEntityDataMapper();
-        this.creatorsEnveloppeEntityDataMapper = new CreatorsEnveloppeEntityDataMapper();
+    @Inject
+    public ComicEntityDataMapper(SpecifiedUrlEntityDataMapper specifiedUrlEntityDataMapper, SpecifiedDateEntityDataMapper specifiedDateEntityDataMapper, ImageEntityDataMapper imageEntityDataMapper, CreatorsEnveloppeEntityDataMapper creatorsEnveloppeEntityDataMapper) {
+        this.specifiedUrlEntityDataMapper = specifiedUrlEntityDataMapper;
+        this.specifiedDateEntityDataMapper = specifiedDateEntityDataMapper;
+        this.imageEntityDataMapper = imageEntityDataMapper;
+        this.creatorsEnveloppeEntityDataMapper = creatorsEnveloppeEntityDataMapper;
     }
 
     public List<ComicEntity> transformToEntity(List<ComicRemoteEntity> comicRemoteEntities) {
         List<ComicEntity> entities = new ArrayList<>();
-        
-        if(comicRemoteEntities == null){
+
+        if (comicRemoteEntities == null) {
             return entities;
         }
-        
+
         for (ComicRemoteEntity remoteEntity : comicRemoteEntities) {
             entities.add(transformToEntity(remoteEntity));
         }
@@ -41,7 +45,7 @@ public class ComicEntityDataMapper {
 
         ComicEntity entity = new ComicEntity();
 
-        if(comic == null){
+        if (comic == null) {
             return entity;
         }
 

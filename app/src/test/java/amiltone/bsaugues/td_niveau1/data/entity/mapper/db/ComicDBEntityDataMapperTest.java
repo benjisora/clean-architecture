@@ -17,7 +17,6 @@ import amiltone.bsaugues.td_niveau1.data.entity.db.CreatorDBEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.db.ImageDBEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.db.SpecifiedDateDBEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.db.SpecifiedUrlDBEntity;
-import amiltone.bsaugues.td_niveau1.data.exception.NullParameterException;
 
 import static junit.framework.Assert.fail;
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -36,7 +35,7 @@ public class ComicDBEntityDataMapperTest {
     public void setUp() throws Exception {
         comicEntities = new ArrayList<>();
         comicDBEntities = new ArrayList<>();
-        comicDBEntityDataMapper = new ComicDBEntityDataMapper();
+        //comicDBEntityDataMapper = new ComicDBEntityDataMapper();
 
         generateComicDBEntities();
         generateComicEntities();

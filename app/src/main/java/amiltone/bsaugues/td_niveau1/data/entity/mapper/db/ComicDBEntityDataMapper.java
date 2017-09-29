@@ -3,6 +3,9 @@ package amiltone.bsaugues.td_niveau1.data.entity.mapper.db;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import amiltone.bsaugues.td_niveau1.data.entity.ComicEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.CreatorsEnveloppeEntity;
 import amiltone.bsaugues.td_niveau1.data.entity.db.ComicDBEntity;
@@ -10,7 +13,7 @@ import amiltone.bsaugues.td_niveau1.data.entity.db.ComicDBEntity;
 /**
  * Created by amiltonedev_dt013 on 22/09/2017.
  */
-
+@Singleton
 public class ComicDBEntityDataMapper {
 
     private SpecifiedUrlDBEntityDataMapper specifiedUrlDBEntityDataMapper;
@@ -18,11 +21,12 @@ public class ComicDBEntityDataMapper {
     private ImageDBEntityDataMapper imageDBEntityDataMapper;
     private CreatorDBEntityDataMapper creatorDBEntityDataMapper;
 
-    public ComicDBEntityDataMapper() {
-        this.specifiedUrlDBEntityDataMapper = new SpecifiedUrlDBEntityDataMapper();
-        this.specifiedDateDBEntityDataMapper = new SpecifiedDateDBEntityDataMapper();
-        this.imageDBEntityDataMapper = new ImageDBEntityDataMapper();
-        this.creatorDBEntityDataMapper = new CreatorDBEntityDataMapper();
+    @Inject
+    public ComicDBEntityDataMapper(SpecifiedUrlDBEntityDataMapper specifiedUrlDBEntityDataMapper, SpecifiedDateDBEntityDataMapper specifiedDateDBEntityDataMapper, ImageDBEntityDataMapper imageDBEntityDataMapper, CreatorDBEntityDataMapper creatorDBEntityDataMapper) {
+        this.specifiedUrlDBEntityDataMapper = specifiedUrlDBEntityDataMapper;
+        this.specifiedDateDBEntityDataMapper = specifiedDateDBEntityDataMapper;
+        this.imageDBEntityDataMapper = imageDBEntityDataMapper;
+        this.creatorDBEntityDataMapper = creatorDBEntityDataMapper;
     }
 
     public List<ComicDBEntity> transformToDB(List<ComicEntity> comicEntities) {

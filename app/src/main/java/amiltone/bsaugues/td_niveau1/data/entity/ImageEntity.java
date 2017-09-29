@@ -27,4 +27,11 @@ public class ImageEntity implements Serializable {
         this.extension = extension;
     }
 
+    @Override
+    public String toString() {
+        return "ImageEntity{" +
+                "path='" + path + '\'' +
+                ", extension='" + extension + '\'' +
+                '}';
+    }
 }

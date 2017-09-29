@@ -5,7 +5,6 @@ import android.content.Context;
 import javax.inject.Singleton;
 
 import amiltone.bsaugues.td_niveau1.data.repository.ContentRepository;
-import amiltone.bsaugues.td_niveau1.data.repository.ContentRepositoryImpl;
 import amiltone.bsaugues.td_niveau1.presentation.di.ApplicationModule;
 import dagger.Component;
 

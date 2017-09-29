@@ -64,5 +64,4 @@ public class ComicViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-
 }
